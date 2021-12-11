@@ -1,0 +1,4 @@
+de\vapecloud\launcher\Bootstrap.class
+de\vapecloud\launcher\cluster\VapeCluster.class
+de\vapecloud\launcher\manager\configuration\TestConfig.class
+de\vapecloud\launcher\manager\VapeManager.class
