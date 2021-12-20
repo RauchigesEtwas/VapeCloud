@@ -13,11 +13,9 @@ public abstract class ICommand {
     private String commandname;
     private String[] aliases;
 
-    public ICommand() {}
-
-    public void CommandInfo(String name, String... aliases){
+    public ICommand(String commandname, String... aliases) {
+        this.commandname = commandname;
         this.aliases = aliases;
-        this.commandname = name;
     }
 
     public abstract boolean execute(ICommand command, ICommandSender sender, String[] args);

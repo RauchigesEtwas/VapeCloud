@@ -50,7 +50,7 @@ public class IConsolHandler extends Thread{
         try {
             this.getiLogger().getConsoleReader().clearScreen();
         } catch (IOException exception) {
-            this.getiLogger().error(false, exception.getMessage(), null);
+            this.getiLogger().error(false, exception.getMessage());
         }
     }
 

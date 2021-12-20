@@ -4,7 +4,4 @@ package de.vapecloud.driver.configuration;
  * Created by Robin B. (UniqueByte)
  */
 
-public interface IConfig {
-
-
-}
+public interface IConfig {}

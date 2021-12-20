@@ -5,6 +5,7 @@ package de.vapecloud.driver;
  */
 
 import de.vapecloud.driver.console.IConsolHandler;
+import de.vapecloud.driver.networking.netty.packets.PacketManager;
 import de.vapecloud.driver.utils.IDataCenter;
 
 import java.util.Date;
@@ -16,5 +17,6 @@ public class VapeDriver {
     public static Integer setupStep;
     public static IDataCenter dataCenter = new IDataCenter();
     public static IConsolHandler consolHandler;
+    public static PacketManager packetManager = new PacketManager();
 
 }
