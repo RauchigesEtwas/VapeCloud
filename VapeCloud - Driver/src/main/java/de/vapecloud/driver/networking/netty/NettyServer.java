@@ -12,11 +12,11 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import java.net.InetSocketAddress;
 
+
 /*
  * Created AT: 20.12.2021
  * Created by Robin B. (RauchigesEtwas)
  */
-
 public class NettyServer extends Thread{
 
     private int port;
@@ -44,4 +44,5 @@ public class NettyServer extends Thread{
             exception.printStackTrace();
         }
     }
+
 }
