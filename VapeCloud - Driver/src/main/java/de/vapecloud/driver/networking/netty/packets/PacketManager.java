@@ -4,22 +4,25 @@ package de.vapecloud.driver.networking.netty.packets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/*
+ * Projectname: VapeCloud
+ * Created AT: 21.12.2021/15:06
+ * Created by Robin B. (RauchigesEtwas)
+ * in Cooperation with NikCloud
+ */
+
 public class PacketManager {
 
-    //private ArrayList<Class<? extends Packet>> packets = new ArrayList<>();
     private HashMap<Integer, Class<? extends Packet>> packets = new HashMap<>();
 
     private HashMap<Integer, Class<? extends Packet>> incomingPackets = new HashMap<>();
     private HashMap<Integer, Class<? extends Packet>> outgoingPackets = new HashMap<>();
 
     public PacketManager() {
-        //addPacket(1, TestPacket.class);
-        //addPacket(TestPacket.class);
     }
 
     public void addPacket(int id, Class<? extends Packet> packetClass) {
         packets.put(id, packetClass);
-        //packets.add(packetClass);
     }
 
     public void addIncomingPacket(int id, Class<? extends Packet> packetClass) {

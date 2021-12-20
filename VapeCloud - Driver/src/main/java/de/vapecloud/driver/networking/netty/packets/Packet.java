@@ -2,6 +2,7 @@ package de.vapecloud.driver.networking.netty.packets;
 /*
  * Created AT: 20.12.2021
  * Created by Robin B. (RauchigesEtwas)
+ * in Cooperation with NikCloud
  */
 
 import io.netty.buffer.ByteBuf;

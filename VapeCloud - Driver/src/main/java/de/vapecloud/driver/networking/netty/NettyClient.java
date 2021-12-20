@@ -13,8 +13,10 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 /*
- * Created AT: 20.12.2021
+ * Projectname: VapeCloud
+ * Created AT: 21.12.2021/15:06
  * Created by Robin B. (RauchigesEtwas)
+ * in Cooperation with NikCloud
  */
 
 public class NettyClient extends Thread {
@@ -28,6 +30,11 @@ public class NettyClient extends Thread {
 
     @Override
     public void run() {
+
+        /**
+         * create an new NettyClient Syncron Connection to running NettyServer
+         */
+
         EventLoopGroup eventLoopGroup = Epoll.isAvailable() ? new EpollEventLoopGroup() : new NioEventLoopGroup();
         try {
             Channel channel = new Bootstrap().group(eventLoopGroup).option(ChannelOption.SO_SNDBUF, Integer.MAX_VALUE).option(ChannelOption.SO_RCVBUF, Integer.MAX_VALUE).channel(Epoll.isAvailable() ? EpollSocketChannel.class : NioSocketChannel.class).handler(new ChannelInitializer<Channel>() {
@@ -37,7 +44,6 @@ public class NettyClient extends Thread {
                     pipeline.addLast(new PacketEncoder());
                     pipeline.addLast(new PacketDecoder());
                     pipeline.addLast(new ClientInboundHandler());
-                    //pipeline.addLast(new PacketHandler(true));
                 }
             }).connect(ip, port).sync().channel();
         } catch (InterruptedException exception) {

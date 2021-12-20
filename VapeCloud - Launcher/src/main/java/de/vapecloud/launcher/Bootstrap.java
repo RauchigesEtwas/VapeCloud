@@ -1,13 +1,14 @@
 package de.vapecloud.launcher;
-/*
- * Created AT: 13.11.2021
- * Created by Robin B. (UniqueByte)
- */
-
 
 import de.vapecloud.driver.VapeDriver;
 import de.vapecloud.driver.console.IConsolHandler;
 import de.vapecloud.launcher.manager.VapeManager;
+
+/*
+ * Projectname: VapeCloud
+ * Created AT: 21.12.2021/15:06
+ * Created by Robin B. (RauchigesEtwas)
+ */
 
 public class Bootstrap {
 
@@ -18,7 +19,7 @@ public class Bootstrap {
             VapeDriver.consolHandler.createHandel("CONSOLE");
         }
 
-        VapeDriver.consolHandler.getiLogger().empty(false, VapeDriver.dataCenter.getLogo(), null);
+
 
         new VapeManager().InitVapeMaster();
     }

@@ -1,12 +1,18 @@
 package de.vapecloud.driver.utils;
+
 /*
- * Created AT: 11.12.2021
+ * Projectname: VapeCloud
+ * Created AT: 21.12.2021/15:06
  * Created by Robin B. (RauchigesEtwas)
  */
 
 public class IDataCenter {
 
 
+
+    /**
+     * Return the Logo with an String
+     */
     public String getLogo(){
         return "\n" +
                 "       _   __              _______             __\n" +
@@ -20,6 +26,10 @@ public class IDataCenter {
     }
 
 
+
+    /**
+     * bungee configuration to load them easily
+     */
     public String getBungeeConfig(int port, int maxPlayers){
         return "player_limit: "+maxPlayers+"\n" +
                 "ip_forward: true\n" +
@@ -51,6 +61,10 @@ public class IDataCenter {
     }
 
 
+
+    /**
+     * spigot configuration to load them easily
+     */
     public String getSpigotConfig(){
         return "#Minecraft server properties\n" +
                 "#Mon Jan 25 10:33:48 CET 2021\n" +

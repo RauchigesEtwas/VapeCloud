@@ -7,12 +7,18 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import java.util.List;
 
+/*
+ * Projectname: VapeCloud
+ * Created AT: 21.12.2021/15:06
+ * Created by Robin B. (RauchigesEtwas)
+ * in Cooperation with NikCloud
+ */
+
 public class PacketDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws Exception {
         int id = byteBuf.readInt();
-        //Class<? extends Packet> packetClass = Driver.getInstance().getPacketManager().getPacketFromId(id);
         Class<? extends Packet> packetClass = VapeDriver.packetManager.getIncomingPacketFromId(id);
         if(packetClass != null) {
             Packet packet = packetClass.newInstance();

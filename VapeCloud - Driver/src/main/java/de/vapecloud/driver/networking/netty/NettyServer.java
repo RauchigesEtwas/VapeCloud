@@ -14,8 +14,10 @@ import java.net.InetSocketAddress;
 
 
 /*
- * Created AT: 20.12.2021
+ * Projectname: VapeCloud
+ * Created AT: 21.12.2021/15:06
  * Created by Robin B. (RauchigesEtwas)
+ * in Cooperation with NikCloud
  */
 public class NettyServer extends Thread{
 
@@ -26,6 +28,11 @@ public class NettyServer extends Thread{
 
     @Override
     public void run() {
+
+        /**
+         * create an new NettyServer Syncron Connection
+         */
+
         EventLoopGroup eventLoopGroup = Epoll.isAvailable() ? new EpollEventLoopGroup() : new NioEventLoopGroup();
         try {
             Channel channel = new ServerBootstrap().group(eventLoopGroup).option(ChannelOption.SO_RCVBUF, Integer.MAX_VALUE).channel(Epoll.isAvailable() ? EpollServerSocketChannel.class : NioServerSocketChannel.class).childHandler(new ChannelInitializer<Channel>() {

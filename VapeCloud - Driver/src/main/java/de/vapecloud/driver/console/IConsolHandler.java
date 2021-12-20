@@ -1,16 +1,17 @@
 package de.vapecloud.driver.console;
-/*
- * Created AT: 13.11.2021
- * Created by Robin B. (UniqueByte)
- */
 
 import de.vapecloud.driver.VapeDriver;
 import de.vapecloud.driver.commandsystem.ICommandHandler;
 import de.vapecloud.driver.commandsystem.ICommandSender;
 import de.vapecloud.driver.logger.ILogger;
 import lombok.SneakyThrows;
-
 import java.io.IOException;
+
+/*
+ * Projectname: VapeCloud
+ * Created AT: 21.12.2021/15:06
+ * Created by Robin B. (RauchigesEtwas)
+ */
 
 public class IConsolHandler extends Thread{
 

@@ -1,8 +1,4 @@
 package de.vapecloud.driver.configuration;
-/*
- * Created AT: 11.12.2021
- * Created by Robin B. (UniqueByte)
- */
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -13,10 +9,15 @@ import lombok.SneakyThrows;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
+/*
+ * Projectname: VapeCloud
+ * Created AT: 21.12.2021/15:06
+ * Created by Robin B. (RauchigesEtwas)
+ */
+
 public class IConfigHandler {
 
     protected static final Gson GSON = (new GsonBuilder()).serializeNulls().setPrettyPrinting().disableHtmlEscaping().create();
-    protected static final JsonParser PARSER = new JsonParser();
     private String filelocation;
     private final Gson gson;
 

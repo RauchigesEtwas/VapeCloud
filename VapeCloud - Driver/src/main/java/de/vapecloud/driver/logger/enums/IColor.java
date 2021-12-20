@@ -2,9 +2,12 @@ package de.vapecloud.driver.logger.enums;
 
 import org.fusesource.jansi.Ansi;
 
-/**
- * The enum Color.
+/*
+ * Projectname: VapeCloud
+ * Created AT: 21.12.2021/15:06
+ * Created by Robin B. (RauchigesEtwas)
  */
+
 public enum IColor {
 
     /**

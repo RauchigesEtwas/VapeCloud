@@ -1,4 +1,4 @@
-package de.vapecloud.launcher.cluster;
+package de.vapecloud.driver.events;
 
 /*
  * Projectname: VapeCloud
@@ -6,5 +6,5 @@ package de.vapecloud.launcher.cluster;
  * Created by Robin B. (RauchigesEtwas)
  */
 
-public class VapeCluster {
+public class EvemtHandler {
 }

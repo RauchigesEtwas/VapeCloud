@@ -3,10 +3,14 @@ package de.vapecloud.driver.logger;
 import de.vapecloud.driver.logger.enums.IColor;
 import jline.console.ConsoleReader;
 import org.fusesource.jansi.Ansi;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
+/*
+ * Projectname: VapeCloud
+ * Created AT: 21.12.2021/15:06
+ * Created by Robin B. (RauchigesEtwas)
+ */
 
 public class ILogger {
 
@@ -35,6 +39,11 @@ public class ILogger {
     }
 
 
+    /**
+     * SETUP.
+     *
+     * @param message the message
+     */
     public void setup(boolean usecommand, String message ) {
         printLine(usecommand,"SETUP", message);
     }
