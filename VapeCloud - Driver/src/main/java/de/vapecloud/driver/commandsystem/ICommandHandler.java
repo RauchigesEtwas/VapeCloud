@@ -5,8 +5,6 @@ package de.vapecloud.driver.commandsystem;
  */
 
 import de.vapecloud.driver.VapeDriver;
-import de.vapecloud.driver.utils.stuff.IDataCenter;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,7 +27,7 @@ public class ICommandHandler {
 
     public void executeCommand(String line, ICommandSender sender){
         ICommand command = getCommand(line.split(" ")[0]);
-        String[] args = new IDataCenter().dropFirstString(line.split(" "));
+        String[] args = VapeDriver.dataCenter.dropFirstString(line.split(" "));
         if(command != null){
             if(VapeDriver.consolHandler.isAlive()){
                 command.execute(command,sender, args);
