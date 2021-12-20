@@ -30,13 +30,17 @@ public class ILogger {
      *
      * @param message the message
      */
-    public void info(boolean usecommand, String message,String fillingText) {
-        printLine(usecommand,"INFORMATION", message,fillingText);
+    public void info(boolean usecommand, String message ) {
+        printLine(usecommand,"INFO", message);
     }
 
 
-    public void networking(boolean usecommand, String message,String fillingText) {
-        printLine(usecommand,"NETWORK-BRIDGE", message, fillingText);
+    public void setup(boolean usecommand, String message ) {
+        printLine(usecommand,"SETUP", message);
+    }
+
+    public void networking(boolean usecommand, String message) {
+        printLine(usecommand,"NETWORK", message);
     }
 
     /**
@@ -44,12 +48,12 @@ public class ILogger {
      *
      * @param message the message
      */
-    public void error(boolean usecommand, String message, String fillingText) {
-        printLine(usecommand,"ERROR", "§c" + message,fillingText);
+    public void error(boolean usecommand, String message) {
+        printLine(usecommand,"§cERROR", "§c" + message);
     }
 
-    public void empty(boolean usecommand, String message, String fillingText) {
-        printLine(usecommand,null, message,fillingText);
+    public void empty(boolean usecommand, String message ) {
+        printLine(usecommand,null, message);
     }
 
 
@@ -58,8 +62,17 @@ public class ILogger {
      *
      * @param message the message
      */
-    public void warning(boolean usecommand, String message, String fillingText) {
-        printLine(usecommand,"WARNING", message,fillingText);
+    public void succecess(boolean usecommand, String message ) {
+        printLine(usecommand,"§aSUCCESS", message);
+    }
+
+    /**
+     * Warning.
+     *
+     * @param message the message
+     */
+    public void warning(boolean usecommand, String message ) {
+        printLine(usecommand,"§eWARN", message);
     }
 
     /**
@@ -67,14 +80,14 @@ public class ILogger {
      *
      * @param message the message
      */
-    public void debug(boolean usecommand, String message, String fillingText) {
+    public void debug(boolean usecommand, String message) {
         printLine(usecommand,
-                "DEBUG", message,fillingText);
+                "§9DEBUG", message);
     }
 
 
 
-    private void printLine(Boolean usedcommand, String prefix, String message, String fillingText) {
+    private void printLine(Boolean usedcommand, String prefix, String message) {
         try {
             String inline = "";
 
@@ -94,7 +107,7 @@ public class ILogger {
                 }
             }else{
                 try {
-                    consoleReader.println(Ansi.ansi().eraseLine(Ansi.Erase.ALL).toString() + colorString("§7[§f" + simpleDateFormat.format(System.currentTimeMillis()) + "§7 | §b"+ prefix+"§7] "  + IColor.RESET.getAnsiCode() + message + IColor.RESET.getAnsiCode()));
+                    consoleReader.println(Ansi.ansi().eraseLine(Ansi.Erase.ALL).toString() + colorString("§7[§f" + simpleDateFormat.format(System.currentTimeMillis()) +"§7] §b"+ prefix + "§8: §7" + IColor.RESET.getAnsiCode() + message + IColor.RESET.getAnsiCode()));
 
                     consoleReader.drawLine();
                     consoleReader.flush();
@@ -104,15 +117,8 @@ public class ILogger {
             }
             if(!usedcommand){
 
-                if(fillingText != null){
-
-                    consoleReader.setPrompt(colorString("§bVapefCloud §7» §7"));
-                    consoleReader.resetPromptLine(colorString("§bVape§fCloud §7» §7"), fillingText, fillingText.length());
-                }else{
-
-                    consoleReader.setPrompt(colorString("§bVapefCloud §7» §7"));
-                    consoleReader.resetPromptLine(colorString("§bVape§fCloud §7» §7"), inline, inline.length());
-                }
+                consoleReader.setPrompt(colorString("§bVapefCloud §7» §7"));
+                consoleReader.resetPromptLine(colorString("§bVape§fCloud §7» §7"), inline, inline.length());
 
             }
         }catch (Exception e){
