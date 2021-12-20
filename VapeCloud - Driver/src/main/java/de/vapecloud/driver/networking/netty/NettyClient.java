@@ -24,7 +24,6 @@ public class NettyClient extends Thread {
     public NettyClient(String ip, int port) {
         this.ip = ip;
         this.port = port;
-        this.start();
     }
 
     @Override
