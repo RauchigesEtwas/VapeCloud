@@ -17,10 +17,6 @@ public class VapeManager {
             VapeDriver.consolHandler.createHandel("CONSOLE");
         }
 
-        new IConfigHandler("./test.json").saveConfig(new TestConfig("123"));
-
-        TestConfig testConfig = (TestConfig) new IConfigHandler("./test.json").getConfig(TestConfig.class);
-        System.out.println("test:" + testConfig.getTest());
 
     }
 
