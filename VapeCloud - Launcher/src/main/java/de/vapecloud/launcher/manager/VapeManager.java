@@ -12,10 +12,7 @@ import de.vapecloud.launcher.manager.configuration.TestConfig;
 public class VapeManager {
 
     public void InitVapeMaster(){
-        if (VapeDriver.consolHandler == null){
-            VapeDriver.consolHandler = new IConsolHandler();
-            VapeDriver.consolHandler.createHandel("CONSOLE");
-        }
+
 
 
     }
