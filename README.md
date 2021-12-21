@@ -1,4 +1,4 @@
-![Image of VapeCloud](https://i.ibb.co/grprDJ7/Unbenannt.png)
+![Image of VapeCloud](https://i.ibb.co/yNHfskr/logo-text.png)
 This is the **VapeCloud** project, it is a Minecraft Dynamic CloudSystem based on Netty.
 
 **IMPORTENT: this Cloudsystem is still in Develop**
