@@ -7,4 +7,9 @@ package de.vapecloud.launcher.cluster;
  */
 
 public class VapeCluster {
+
+    public void initVapeCluster(){
+
+
+    }
 }

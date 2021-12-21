@@ -1,9 +1,8 @@
-package de.vapecloud.driver.networking.netty;
+package de.vapecloud.driver.networking.client;
 
 
-import de.vapecloud.driver.networking.netty.coder.PacketDecoder;
-import de.vapecloud.driver.networking.netty.coder.PacketEncoder;
-import de.vapecloud.driver.networking.netty.handler.ClientInboundHandler;
+import de.vapecloud.driver.networking.base.coder.PacketDecoder;
+import de.vapecloud.driver.networking.base.coder.PacketEncoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.epoll.Epoll;

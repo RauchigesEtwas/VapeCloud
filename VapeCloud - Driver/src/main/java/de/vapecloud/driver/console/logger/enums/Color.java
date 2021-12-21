@@ -1,4 +1,4 @@
-package de.vapecloud.driver.logger.enums;
+package de.vapecloud.driver.console.logger.enums;
 
 import org.fusesource.jansi.Ansi;
 
@@ -8,7 +8,7 @@ import org.fusesource.jansi.Ansi;
  * Created by Robin B. (RauchigesEtwas)
  */
 
-public enum IColor {
+public enum Color {
 
     /**
      * Reset color.
@@ -79,7 +79,7 @@ public enum IColor {
 
     private final char index;
 
-    IColor(char index, String ansiCode) {
+    Color(char index, String ansiCode) {
         this.index = index;
         this.ansiCode = ansiCode;
     }

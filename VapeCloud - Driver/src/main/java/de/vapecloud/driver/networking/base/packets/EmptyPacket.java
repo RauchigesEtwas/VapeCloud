@@ -1,4 +1,4 @@
-package de.vapecloud.driver.networking.netty.packets;
+package de.vapecloud.driver.networking.base.packets;
 /*
  * Projectname: VapeCloud
  * Created AT: 21.12.2021/15:06

@@ -1,6 +1,6 @@
-package de.vapecloud.driver.networking.netty.coder;
+package de.vapecloud.driver.networking.base.coder;
 
-import de.vapecloud.driver.networking.netty.packets.Packet;
+import de.vapecloud.driver.networking.base.packets.Packet;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;

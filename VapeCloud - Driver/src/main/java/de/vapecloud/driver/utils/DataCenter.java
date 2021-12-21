@@ -6,7 +6,7 @@ package de.vapecloud.driver.utils;
  * Created by Robin B. (RauchigesEtwas)
  */
 
-public class IDataCenter {
+public class DataCenter {
 
 
 

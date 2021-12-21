@@ -6,8 +6,8 @@ package de.vapecloud.driver.networking;
  * in Cooperation with NikCloud
  */
 
-import de.vapecloud.driver.networking.netty.NettyClient;
-import de.vapecloud.driver.networking.netty.NettyServer;
+import de.vapecloud.driver.networking.client.NettyClient;
+import de.vapecloud.driver.networking.server.NettyServer;
 
 public class NetworkManager {
 

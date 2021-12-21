@@ -1,7 +1,6 @@
-package de.vapecloud.driver.networking.netty.packets;
+package de.vapecloud.driver.networking.base.packets;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /*

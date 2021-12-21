@@ -3,7 +3,8 @@ package de.vapecloud.driver.console;
 import de.vapecloud.driver.VapeDriver;
 import de.vapecloud.driver.commandsystem.ICommandHandler;
 import de.vapecloud.driver.commandsystem.ICommandSender;
-import de.vapecloud.driver.logger.ILogger;
+
+import de.vapecloud.driver.console.logger.Logger;
 import lombok.SneakyThrows;
 import java.io.IOException;
 
@@ -13,13 +14,13 @@ import java.io.IOException;
  * Created by Robin B. (RauchigesEtwas)
  */
 
-public class IConsolHandler extends Thread{
+public class ConsolHandler extends Thread{
 
     private ICommandHandler commandHandler;
-    private ILogger iLogger;
+    private Logger logger;
     private String sender;
 
-    public IConsolHandler() {}
+    public ConsolHandler() {}
 
     @SneakyThrows
     @Override
@@ -30,11 +31,11 @@ public class IConsolHandler extends Thread{
             }else{
                 if(this.commandHandler != null){
                     String line;
-                    String coloredPromp = this.getiLogger().colorString("§bVape§fCloud §7» §7");
-                    while ((line = this.getiLogger().getConsoleReader().readLine(coloredPromp)) != null) {
+                    String coloredPromp = this.getLogger().colorString("§bVape§fCloud §7» §7");
+                    while ((line = this.getLogger().getConsoleReader().readLine(coloredPromp)) != null) {
                         if (!line.trim().isEmpty()) {
-                            this.getiLogger().getConsoleReader().resetPromptLine("", "", 0);
-                            this.getiLogger().getConsoleReader().setPrompt("");
+                            this.getLogger().getConsoleReader().resetPromptLine("", "", 0);
+                            this.getLogger().getConsoleReader().setPrompt("");
                             this.getCommandHandler().executeCommand(line, new ICommandSender("console", sender, null, null));
                         }
                     }
@@ -49,16 +50,16 @@ public class IConsolHandler extends Thread{
      */
     public void clearScreen(){
         try {
-            this.getiLogger().getConsoleReader().clearScreen();
+            this.getLogger().getConsoleReader().clearScreen();
         } catch (IOException exception) {
-            this.getiLogger().error(false, exception.getMessage());
+            this.getLogger().error(false, exception.getMessage());
         }
     }
 
 
 
     public String readLine() {
-        return this.getiLogger().readLine();
+        return this.getLogger().readLine();
     }
 
     public void createHandel(String sender){
@@ -70,8 +71,8 @@ public class IConsolHandler extends Thread{
 
     }
 
-    public ILogger getiLogger() {
-        return iLogger;
+    public Logger getLogger() {
+        return logger;
     }
 
 
@@ -88,7 +89,7 @@ public class IConsolHandler extends Thread{
 
 
     private void initLogger(){
-        this.iLogger = new ILogger();
+        this.logger = new Logger();
     }
 
     private void initCommandSystem(){

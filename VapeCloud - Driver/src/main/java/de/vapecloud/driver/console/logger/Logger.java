@@ -1,6 +1,6 @@
-package de.vapecloud.driver.logger;
+package de.vapecloud.driver.console.logger;
 
-import de.vapecloud.driver.logger.enums.IColor;
+import de.vapecloud.driver.console.logger.enums.Color;
 import jline.console.ConsoleReader;
 import org.fusesource.jansi.Ansi;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
  * Created by Robin B. (RauchigesEtwas)
  */
 
-public class ILogger {
+public class Logger {
 
     public ConsoleReader consoleReader;
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "HH:mm:ss" );
@@ -22,7 +22,7 @@ public class ILogger {
     /**
      * Instantiates a new Logger provider.
      */
-    public ILogger() {
+    public Logger() {
         try {
             this.consoleReader = new ConsoleReader(System.in, System.out);
         } catch (IOException ignored) { }
@@ -107,7 +107,7 @@ public class ILogger {
             }
             if(prefix == null){
                 try {
-                    consoleReader.println(Ansi.ansi().eraseLine(Ansi.Erase.ALL).toString() + colorString(message + IColor.RESET.getAnsiCode()));
+                    consoleReader.println(Ansi.ansi().eraseLine(Ansi.Erase.ALL).toString() + colorString(message + Color.RESET.getAnsiCode()));
                     consoleReader.drawLine();
                     consoleReader.flush();
 
@@ -116,7 +116,7 @@ public class ILogger {
                 }
             }else{
                 try {
-                    consoleReader.println(Ansi.ansi().eraseLine(Ansi.Erase.ALL).toString() + colorString("§7[§f" + simpleDateFormat.format(System.currentTimeMillis()) +"§7] §b"+ prefix + "§8: §7" + IColor.RESET.getAnsiCode() + message + IColor.RESET.getAnsiCode()));
+                    consoleReader.println(Ansi.ansi().eraseLine(Ansi.Erase.ALL).toString() + colorString("§7[§f" + simpleDateFormat.format(System.currentTimeMillis()) +"§7] §b"+ prefix + "§8: §7" + Color.RESET.getAnsiCode() + message + Color.RESET.getAnsiCode()));
 
                     consoleReader.drawLine();
                     consoleReader.flush();
@@ -172,7 +172,7 @@ public class ILogger {
      */
     public String colorString(String text) {
 
-        for (IColor consoleColour : IColor.values()) {
+        for (Color consoleColour : Color.values()) {
             text = text.replace('§' + "" + consoleColour.getIndex(), consoleColour.getAnsiCode());
         }
 

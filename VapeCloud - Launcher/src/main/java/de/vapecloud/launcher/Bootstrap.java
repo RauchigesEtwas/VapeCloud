@@ -1,7 +1,7 @@
 package de.vapecloud.launcher;
 
 import de.vapecloud.driver.VapeDriver;
-import de.vapecloud.driver.console.IConsolHandler;
+import de.vapecloud.driver.console.ConsolHandler;
 import de.vapecloud.launcher.manager.VapeManager;
 
 /*
@@ -15,12 +15,11 @@ public class Bootstrap {
 
     public static void main(String[] args) {
         if (VapeDriver.consolHandler == null){
-            VapeDriver.consolHandler = new IConsolHandler();
+            VapeDriver.consolHandler = new ConsolHandler();
             VapeDriver.consolHandler.createHandel("CONSOLE");
         }
 
-
-
-        new VapeManager().InitVapeMaster();
+        VapeDriver.consolHandler.getLogger().empty(false, VapeDriver.dataCenter.getLogo());
+        new VapeManager().initVapeManager();
     }
 }

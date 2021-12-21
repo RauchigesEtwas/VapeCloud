@@ -1,9 +1,10 @@
 package de.vapecloud.driver;
 
 
-import de.vapecloud.driver.console.IConsolHandler;
-import de.vapecloud.driver.networking.netty.packets.PacketManager;
-import de.vapecloud.driver.utils.IDataCenter;
+import de.vapecloud.driver.console.ConsolHandler;
+import de.vapecloud.driver.networking.base.packets.PacketManager;
+import de.vapecloud.driver.utils.DataCenter;
+
 
 /*
  * Projectname: VapeCloud
@@ -14,8 +15,8 @@ import de.vapecloud.driver.utils.IDataCenter;
 public class VapeDriver {
 
     public static boolean inSetup;
-    public static IDataCenter dataCenter = new IDataCenter();
-    public static IConsolHandler consolHandler;
+    public static DataCenter dataCenter = new DataCenter();
+    public static ConsolHandler consolHandler;
     public static PacketManager packetManager = new PacketManager();
 
 }

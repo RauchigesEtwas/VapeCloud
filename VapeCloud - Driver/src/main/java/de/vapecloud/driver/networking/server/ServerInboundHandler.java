@@ -1,6 +1,6 @@
-package de.vapecloud.driver.networking.netty.handler;
+package de.vapecloud.driver.networking.server;
 
-import de.vapecloud.driver.networking.netty.packets.Packet;
+import de.vapecloud.driver.networking.base.packets.Packet;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -11,14 +11,23 @@ import io.netty.channel.SimpleChannelInboundHandler;
  * in Cooperation with NikCloud
  */
 
-public class ClientInboundHandler extends SimpleChannelInboundHandler<Packet> {
+public class ServerInboundHandler extends SimpleChannelInboundHandler<Packet> {
 
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) {
+    }
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, Packet packet) throws Exception {
 
     }
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        System.out.println("Server ist tod");
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) {
+    }
+    @Override
+    public void channelUnregistered(ChannelHandlerContext ctx) {
     }
 }

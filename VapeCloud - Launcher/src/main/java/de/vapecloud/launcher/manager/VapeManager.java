@@ -9,7 +9,7 @@ package de.vapecloud.launcher.manager;
 
 public class VapeManager {
 
-    public void InitVapeMaster(){
+    public void initVapeManager(){
 
 
 
