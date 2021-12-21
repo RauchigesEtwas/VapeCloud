@@ -50,6 +50,4 @@ Use of KVM virtualization or dedicated servers is recommended.
 
 
 ## Support
-- Discord: /
-- Twitter: @VapeCloudService
-- website: https://vape.cloud/   (**Maintenance**)
+- Discord: https://discord.gg/4kKEcaP9WC
