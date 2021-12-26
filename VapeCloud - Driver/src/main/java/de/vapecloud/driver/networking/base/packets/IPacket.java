@@ -10,7 +10,7 @@ import io.netty.buffer.ByteBuf;
 
 public interface IPacket {
 
-    void encodePayload(ByteBuf byteBuf);
-    void decodePayload(ByteBuf byteBuf);
+    void writePayload(ByteBuf packet);
+    void readPayload(ByteBuf packet);
 
 }

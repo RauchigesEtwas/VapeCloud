@@ -3,7 +3,6 @@ package de.vapecloud.driver.console;
 import de.vapecloud.driver.VapeDriver;
 import de.vapecloud.driver.commandsystem.ICommandHandler;
 import de.vapecloud.driver.commandsystem.ICommandSender;
-
 import de.vapecloud.driver.console.logger.Logger;
 import lombok.SneakyThrows;
 import java.io.IOException;
@@ -26,7 +25,7 @@ public class ConsolHandler extends Thread{
     @Override
     public void run() {
         while (!isInterrupted() && isAlive()){
-            if (VapeDriver.inSetup){
+            if (VapeDriver.vapeSettings.inSetup){
 
             }else{
                 if(this.commandHandler != null){

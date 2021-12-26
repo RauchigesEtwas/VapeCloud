@@ -19,6 +19,10 @@ public class ICommandHandler {
     }
 
 
+    public Set<ICommand> getCommands() {
+        return commands;
+    }
+
     public void registerCommand(ICommand command){
         commands.add(command);
     }

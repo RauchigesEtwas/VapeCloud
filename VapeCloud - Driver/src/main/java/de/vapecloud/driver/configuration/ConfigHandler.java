@@ -3,7 +3,6 @@ package de.vapecloud.driver.configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParser;
 import de.vapecloud.driver.VapeDriver;
 import lombok.SneakyThrows;
 import java.io.*;
@@ -15,7 +14,7 @@ import java.nio.charset.StandardCharsets;
  * Created by Robin B. (RauchigesEtwas)
  */
 
-public class IConfigHandler {
+public class ConfigHandler {
 
     protected static final Gson GSON = (new GsonBuilder()).serializeNulls().setPrettyPrinting().disableHtmlEscaping().create();
     private String filelocation;
@@ -23,16 +22,20 @@ public class IConfigHandler {
 
 
 
-    public  IConfigHandler(String location){
+    public  ConfigHandler(String location){
         this.gson = new Gson();
         this.filelocation = location;
     }
 
 
     @SneakyThrows
-    public IConfig getConfig(Class<? extends IConfig> tClass){
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(new File(this.filelocation), tClass);
+    public IConfig getConfig(Class<? extends IConfig> tClass) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return (IConfig)objectMapper.readValue(new File(this.filelocation), tClass);
+        } catch (Throwable e) {
+            throw e;
+        }
     }
 
 

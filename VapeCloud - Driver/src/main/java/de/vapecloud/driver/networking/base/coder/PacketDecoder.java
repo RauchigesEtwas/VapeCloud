@@ -19,10 +19,10 @@ public class PacketDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws Exception {
         int id = byteBuf.readInt();
-        Class<? extends Packet> packetClass = VapeDriver.packetManager.getIncomingPacketFromId(id);
+        Class<? extends Packet> packetClass = VapeDriver.networkManager.getPacketManager().getIncomingPacketFromId(id);
         if(packetClass != null) {
             Packet packet = packetClass.newInstance();
-            packet.decodePayload(byteBuf);
+            packet.readPayload(byteBuf);
             list.add(packet);
         } else {
             System.out.println("Invalid packet: " + id);

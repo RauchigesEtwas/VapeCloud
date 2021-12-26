@@ -11,17 +11,14 @@ import io.netty.buffer.ByteBuf;
 
 public class ClientAuthPacket extends Packet {
 
+
     protected ClientAuthPacket(int id) {
         super(id);
     }
 
     @Override
-    public void encodePayload(ByteBuf byteBuf) {
-
-    }
+    public void writePayload(ByteBuf packet) {}
 
     @Override
-    public void decodePayload(ByteBuf byteBuf) {
-
-    }
+    public void readPayload(ByteBuf packet) {}
 }

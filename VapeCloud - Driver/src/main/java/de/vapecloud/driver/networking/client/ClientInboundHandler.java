@@ -19,6 +19,6 @@ public class ClientInboundHandler extends SimpleChannelInboundHandler<Packet> {
     }
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        System.out.println("Server ist tod");
+        System.out.println("NETTY | Closed Connection To Cloud...");
     }
 }
