@@ -1,7 +1,9 @@
 package de.vapecloud.driver.networking.server;
 
+import de.vapecloud.driver.VapeDriver;
 import de.vapecloud.driver.networking.base.coder.PacketDecoder;
 import de.vapecloud.driver.networking.base.coder.PacketEncoder;
+import de.vapecloud.driver.networking.packets.client.to.AuthRequestPacket;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.epoll.Epoll;
@@ -10,6 +12,7 @@ import io.netty.channel.epoll.EpollServerSocketChannel;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import java.net.InetSocketAddress;
+import java.util.UUID;
 
 
 /*
@@ -41,8 +44,10 @@ public class NettyServer extends Thread{
                     pipeline.addLast(new PacketEncoder());
                     pipeline.addLast(new PacketDecoder());
                     pipeline.addLast(new ServerInboundHandler());
-                    ///Driver.getInstance().getClients().put("Cloud", channel);
-                    //TODO: Channel sort to Client
+
+                    String key = UUID.randomUUID().toString() + UUID.randomUUID().toString();
+
+                    VapeDriver.networkManager.getClientManager().createChannel(key, channel);
                 }
             }).bind(new InetSocketAddress("0.0.0.0", port)).sync().channel();
         } catch (InterruptedException exception) {

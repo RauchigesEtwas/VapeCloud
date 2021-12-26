@@ -16,8 +16,8 @@ public class PacketHandler extends SimpleChannelInboundHandler<Packet> {
     public PacketHandler() {}
 
     @Override
-    protected void channelRead0(ChannelHandlerContext channels, Packet packet) throws Exception {
-    }
+    protected void channelRead0(ChannelHandlerContext channels, Packet packet){}
+
     @Override
     public void exceptionCaught(ChannelHandlerContext channels, Throwable cause) {}
 }

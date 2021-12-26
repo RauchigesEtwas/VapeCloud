@@ -6,11 +6,25 @@ package de.vapecloud.driver.networking;
  * in Cooperation with NikCloud
  */
 
+import de.vapecloud.driver.networking.base.packets.PacketManager;
 import de.vapecloud.driver.networking.client.NettyClient;
 import de.vapecloud.driver.networking.server.NettyServer;
 
 public class NetworkManager {
 
+
+    private ClientManager clientManager = new ClientManager();
+
+
+    private PacketManager packetManager = new PacketManager();
+
+    public ClientManager getClientManager() {
+        return clientManager;
+    }
+
+    public PacketManager getPacketManager() {
+        return packetManager;
+    }
 
     public void startServer(int port) {
 
