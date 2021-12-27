@@ -13,6 +13,7 @@ public class SetupData {
     public SetupData() {}
 
     public boolean inSetup = false;
+    public int setupStep = 0;
     public SetupTypes setupTypes;
-    public HashMap<String, String> setupMemory = new HashMap<>();
+    public HashMap<String, String> setupMemory;
 }

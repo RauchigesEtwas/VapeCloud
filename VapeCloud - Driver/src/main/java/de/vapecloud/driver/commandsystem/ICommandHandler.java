@@ -36,20 +36,20 @@ public class ICommandHandler {
 
     @SneakyThrows
     public void executeCommand(String line, ICommandSender sender){
-        VapeDriver.consolHandler.getLogger().getConsoleReader().resetPromptLine("", "", 0);
-        VapeDriver.consolHandler.getLogger().getConsoleReader().setPrompt("");
+        VapeDriver.getInstance().getConsolHandler().getLogger().getConsoleReader().resetPromptLine("", "", 0);
+        VapeDriver.getInstance().getConsolHandler().getLogger().getConsoleReader().setPrompt("");
 
         ICommand command = getCommand(line.split(" ")[0]);
-        String[] args = VapeDriver.dataCenter.dropFirstString(line.split(" "));
+        String[] args = VapeDriver.getInstance().getVapeSettings().getDataCenter().dropFirstString(line.split(" "));
         if(command != null){
-            if(VapeDriver.consolHandler.isAlive()){
+            if(VapeDriver.getInstance().getConsolHandler().isAlive()){
                 command.execute(command,sender, args);
-                VapeDriver.consolHandler.getLogger().getConsoleReader().resetPromptLine("", "", 0);
-                VapeDriver.consolHandler.getLogger().getConsoleReader().setPrompt("");
+                VapeDriver.getInstance().getConsolHandler().getLogger().getConsoleReader().resetPromptLine("", "", 0);
+                VapeDriver.getInstance().getConsolHandler().getLogger().getConsoleReader().setPrompt("");
 
             }
         }else {
-            VapeDriver.consolHandler.getLogger().sendMessage(MessageType.INFORMATION, true, "the command was not found please type \"help\" to get help");
+            VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, true, "the command was not found please type \"help\" to get help");
         }
 
     }

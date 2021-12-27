@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="VapeCloud - VapeNET" />
         <module name="VapeCloud-Launcher" />
         <module name="VapeCloud - Modules" />
         <module name="VapeCloud - API" />
@@ -14,6 +15,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="VapeCloud - Launcher" target="8" />
+      <module name="VapeCloud - VapeNet" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

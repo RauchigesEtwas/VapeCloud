@@ -20,8 +20,8 @@ public class HelpCommand extends ICommand {
     @Override
     public boolean execute(ICommand command, ICommandSender sender, String[] args) {
 
-        VapeDriver.consolHandler.getLogger().sendMessage(MessageType.INFORMATION,true, "The following Commands are registered:");
-        VapeDriver.consolHandler.getCommandHandler().getCommands().forEach(cmd -> {
+        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION,true, "The following Commands are registered:");
+        VapeDriver.getInstance().getConsolHandler().getCommandHandler().getCommands().forEach(cmd -> {
             String aliases = "";
 
             if(cmd.getAliases().isEmpty()){
@@ -38,12 +38,12 @@ public class HelpCommand extends ICommand {
                 }
             }
 
-            VapeDriver.consolHandler.getLogger().sendMessage(MessageType.INFORMATION,true, "   -> " + cmd.getName() + " - Aliases: §e[" +aliases+"] §7~ §f" + cmd.getDescription());
+            VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION,true, "   -> " + cmd.getName() + " - Aliases: §e[" +aliases+"] §7~ §f" + cmd.getDescription());
         });
-        VapeDriver.consolHandler.getLogger().sendMessage(MessageType.INFORMATION, true, "");
-        VapeDriver.consolHandler.getLogger().sendMessage(MessageType.INFORMATION, true, "Threads§7: §b"+ Runtime.getRuntime().availableProcessors());
-        VapeDriver.consolHandler.getLogger().sendMessage(MessageType.INFORMATION, true, "OS§7: §b"+ System.getProperty("os.name"));
-        VapeDriver.consolHandler.getLogger().sendMessage(MessageType.INFORMATION, true, "Support§7: §bhttps://discord.gg/4kKEcaP9W");
+        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, true, "");
+        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, true, "Threads§7: §b"+ Runtime.getRuntime().availableProcessors());
+        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, true, "OS§7: §b"+ System.getProperty("os.name"));
+        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, true, "Support§7: §bhttps://discord.gg/4kKEcaP9W");
         return false;
     }
 }

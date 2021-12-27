@@ -72,11 +72,11 @@ public class ConfigHandler {
                 try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.filelocation), StandardCharsets.UTF_8)) {
                     GSON.toJson(iconfig, writer);
                 } catch (IOException e) {
-                    VapeDriver.consolHandler.getLogger().sendMessage(MessageType.ERROR,false, "" + e.getMessage());
+                    VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.ERROR,false, "" + e.getMessage());
                 }
             }catch (Exception ignored){}
         }else{
-            VapeDriver.consolHandler.getLogger().sendMessage(MessageType.ERROR,false, "The location or the config is null");
+            VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.ERROR,false, "The location or the config is null");
         }
     }
 

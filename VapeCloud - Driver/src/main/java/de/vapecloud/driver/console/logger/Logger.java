@@ -39,25 +39,52 @@ public class Logger {
      * @param message the message
      */
     public void sendMessage(MessageType messageType, boolean usecommand, String message ) {
-        if (messageType == MessageType.INFORMATION){
-            printLine(usecommand,"INFO", message);
-        }else if (messageType == MessageType.SETUP){
-            printLine(usecommand,"SETUP", message);
-        }else if (messageType == MessageType.NETWORK){
-            printLine(usecommand,"NETWORK", message);
-        }else if (messageType == MessageType.EMPTY){
-            printLine(usecommand,null, message);
-        }else if (messageType == MessageType.ERROR){
-            printLine(usecommand,"§cERROR", message);
-        }else if (messageType == MessageType.WARNING){
-            printLine(usecommand,"§eWARN", message);
+        switch (messageType){
+            case INFORMATION:
+                printLine(usecommand,"INFO", message, null);
+                break;
+            case EMPTY:
+                printLine(usecommand,null, message, null);
+                break;
+            case ERROR:
+                printLine(usecommand,"§cERROR", message, null);
+                break;
+            case NETWORK:
+                printLine(usecommand,"NETWORK", message, null);
+                break;
+            case SETUP:
+                printLine(usecommand,"SETUP", message, null);
+                break;
+            case WARNING:
+                printLine(usecommand,"§eWARN", message,null);
+        }
+    }
+
+    public void sendMessage(MessageType messageType, boolean usecommand, String message, String print ) {
+        switch (messageType){
+            case INFORMATION:
+                printLine(usecommand,"INFO", message, print);
+                break;
+            case EMPTY:
+                printLine(usecommand,null, message, print);
+                break;
+            case ERROR:
+                printLine(usecommand,"§cERROR", message, print);
+                break;
+            case NETWORK:
+                printLine(usecommand,"NETWORK", message, print);
+                break;
+            case SETUP:
+                printLine(usecommand,"SETUP", message, print);
+                break;
+            case WARNING:
+                printLine(usecommand,"§eWARN", message, print);
         }
     }
 
 
 
-
-    private void printLine(Boolean usedcommand, String prefix, String message) {
+    private void printLine(Boolean usedcommand, String prefix, String message, String print) {
         try {
             String inline = "";
 
@@ -87,9 +114,15 @@ public class Logger {
             }
             if(!usedcommand){
 
-                String coloredPromp = colorString("§bVape§fCloud §7> §7");
-                consoleReader.setPrompt(colorString(coloredPromp));
-                consoleReader.resetPromptLine(colorString(coloredPromp), inline, inline.length());
+                if(print != null){
+                    String coloredPromp = colorString("§bVape§fCloud §7> §7");
+                    consoleReader.setPrompt(colorString(coloredPromp));
+                    consoleReader.resetPromptLine(colorString(coloredPromp), print, print.length());
+                }else{
+                    String coloredPromp = colorString("§bVape§fCloud §7> §7");
+                    consoleReader.setPrompt(colorString(coloredPromp));
+                    consoleReader.resetPromptLine(colorString(coloredPromp), inline, inline.length());
+                }
 
             }
         }catch (Exception e){

@@ -19,7 +19,7 @@ public class ClearConsolCommand extends ICommand {
     @Override
     public boolean execute(ICommand command, ICommandSender sender, String[] args) {
 
-        VapeDriver.consolHandler.clearScreen();
+        VapeDriver.getInstance().getConsolHandler().clearScreen();
 
         return false;
     }

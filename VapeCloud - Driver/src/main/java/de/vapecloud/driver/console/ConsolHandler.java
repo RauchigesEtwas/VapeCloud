@@ -5,6 +5,7 @@ import de.vapecloud.driver.commandsystem.ICommandHandler;
 import de.vapecloud.driver.commandsystem.ICommandSender;
 import de.vapecloud.driver.console.logger.Logger;
 import de.vapecloud.driver.console.logger.enums.MessageType;
+import de.vapecloud.driver.console.setup.StartupSetup;
 import de.vapecloud.driver.utils.setup.SetupTypes;
 import lombok.SneakyThrows;
 import java.io.IOException;
@@ -32,15 +33,15 @@ public class ConsolHandler extends Thread{
                     String coloredPromp = getLogger().colorString("§bVape§fCloud §7> §7");
 
                     while ((line = this.getLogger().getConsoleReader().readLine(coloredPromp)) != null) {
-                        if (VapeDriver.vapeSettings.getSetupData().inSetup){
-                            if (VapeDriver.vapeSettings.getSetupData().setupTypes == SetupTypes.STARTUP){
-
+                        if (VapeDriver.getInstance().getVapeSettings().getSetupData().inSetup){
+                            if (VapeDriver.getInstance().getVapeSettings().getSetupData().setupTypes == SetupTypes.STARTUP){
+                                new StartupSetup(line);
                             }
 
                         }else if (!line.trim().isEmpty()) {
                             this.getCommandHandler().executeCommand(line, new ICommandSender("console", sender, null, null));
                         }else {
-                            VapeDriver.consolHandler.getLogger().sendMessage(MessageType.INFORMATION, false, "the command was not found please type \"help\" to get help");
+                            VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, false, "the command was not found please type \"help\" to get help");
                         }
                     }
                 }
