@@ -4,6 +4,8 @@ import de.vapecloud.driver.VapeDriver;
 import de.vapecloud.driver.commandsystem.ICommandHandler;
 import de.vapecloud.driver.commandsystem.ICommandSender;
 import de.vapecloud.driver.console.logger.Logger;
+import de.vapecloud.driver.console.logger.enums.MessageType;
+import de.vapecloud.driver.utils.setup.SetupTypes;
 import lombok.SneakyThrows;
 import java.io.IOException;
 
@@ -25,21 +27,23 @@ public class ConsolHandler extends Thread{
     @Override
     public void run() {
         while (!isInterrupted() && isAlive()){
-            if (VapeDriver.vapeSettings.inSetup){
-
-            }else{
-                if(this.commandHandler != null){
+                if(this.commandHandler != null) {
                     String line;
-                    String coloredPromp = this.getLogger().colorString("§bVape§fCloud §7» §7");
+                    String coloredPromp = getLogger().colorString("§bVape§fCloud §7> §7");
+
                     while ((line = this.getLogger().getConsoleReader().readLine(coloredPromp)) != null) {
-                        if (!line.trim().isEmpty()) {
-                            this.getLogger().getConsoleReader().resetPromptLine("", "", 0);
-                            this.getLogger().getConsoleReader().setPrompt("");
+                        if (VapeDriver.vapeSettings.getSetupData().inSetup){
+                            if (VapeDriver.vapeSettings.getSetupData().setupTypes == SetupTypes.STARTUP){
+
+                            }
+
+                        }else if (!line.trim().isEmpty()) {
                             this.getCommandHandler().executeCommand(line, new ICommandSender("console", sender, null, null));
+                        }else {
+                            VapeDriver.consolHandler.getLogger().sendMessage(MessageType.INFORMATION, false, "the command was not found please type \"help\" to get help");
                         }
                     }
                 }
-            }
         }
     }
 
@@ -51,7 +55,7 @@ public class ConsolHandler extends Thread{
         try {
             this.getLogger().getConsoleReader().clearScreen();
         } catch (IOException exception) {
-            this.getLogger().error(false, exception.getMessage());
+            this.getLogger().sendMessage(MessageType.ERROR,false, exception.getMessage());
         }
     }
 

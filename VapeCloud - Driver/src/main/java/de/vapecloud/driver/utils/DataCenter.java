@@ -14,15 +14,12 @@ public class DataCenter {
      * Return the Logo with an String
      */
     public String getLogo(){
-        return "\n" +
-                "       _   __              _______             __\n" +
-                "      | | / /__ ____  ___ / ___/ /__  __ _____/ /\n" +
-                "      | |/ / _ `/ _ \\/ -_) /__/ / _ \\/ // / _  /\n" +
-                "      |___/\\_,_/ .__/\\__/\\___/_/\\___/\\_,_/\\_,_/\n" +
-                "              /_/\n" +
-                "\n" +
-                "  <!> Yalways ready for something new! | VERSION: Earthquake-V1.0.0\n" +
-                "  <!> Do you want Support? https://discord.gg/4kKEcaP9WC";
+        return  "                                                           \n" +
+                "           §b_  _ ____ ___  ____ §f____ _    ____ _  _ ___   \n" +
+                "           §b|  | |__| |__] |___ §f|    |    |  | |  | |  \\ \n" +
+                "            §b\\/  |  | |    |___ §f|___ |___ |__| |__| |__/ \n" +
+                "      _______________________________________________________\n" +
+                "    Always §bready§f for §bsomthing§f new §7- §bhttps://discord.gg/4kKEcaP9W\n";
     }
 
 

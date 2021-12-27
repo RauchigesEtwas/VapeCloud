@@ -1,9 +1,12 @@
 package de.vapecloud.driver.console.logger;
 
+import de.vapecloud.driver.VapeDriver;
 import de.vapecloud.driver.console.logger.enums.Color;
+import de.vapecloud.driver.console.logger.enums.MessageType;
 import jline.console.ConsoleReader;
 import org.fusesource.jansi.Ansi;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 /*
@@ -16,6 +19,7 @@ public class Logger {
 
     public ConsoleReader consoleReader;
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "HH:mm:ss" );
+
 
 
 
@@ -34,65 +38,22 @@ public class Logger {
      *
      * @param message the message
      */
-    public void info(boolean usecommand, String message ) {
-        printLine(usecommand,"INFO", message);
+    public void sendMessage(MessageType messageType, boolean usecommand, String message ) {
+        if (messageType == MessageType.INFORMATION){
+            printLine(usecommand,"INFO", message);
+        }else if (messageType == MessageType.SETUP){
+            printLine(usecommand,"SETUP", message);
+        }else if (messageType == MessageType.NETWORK){
+            printLine(usecommand,"NETWORK", message);
+        }else if (messageType == MessageType.EMPTY){
+            printLine(usecommand,null, message);
+        }else if (messageType == MessageType.ERROR){
+            printLine(usecommand,"§cERROR", message);
+        }else if (messageType == MessageType.WARNING){
+            printLine(usecommand,"§eWARN", message);
+        }
     }
 
-
-    /**
-     * SETUP.
-     *
-     * @param message the message
-     */
-    public void setup(boolean usecommand, String message ) {
-        printLine(usecommand,"SETUP", message);
-    }
-
-    public void networking(boolean usecommand, String message) {
-        printLine(usecommand,"NETWORK", message);
-    }
-
-    /**
-     * Error.
-     *
-     * @param message the message
-     */
-    public void error(boolean usecommand, String message) {
-        printLine(usecommand,"§cERROR", "§c" + message);
-    }
-
-    public void empty(boolean usecommand, String message ) {
-        printLine(usecommand,null, message);
-    }
-
-
-    /**
-     * Warning.
-     *
-     * @param message the message
-     */
-    public void succecess(boolean usecommand, String message ) {
-        printLine(usecommand,"§aSUCCESS", message);
-    }
-
-    /**
-     * Warning.
-     *
-     * @param message the message
-     */
-    public void warning(boolean usecommand, String message ) {
-        printLine(usecommand,"§eWARN", message);
-    }
-
-    /**
-     * Debug.
-     *
-     * @param message the message
-     */
-    public void debug(boolean usecommand, String message) {
-        printLine(usecommand,
-                "§9DEBUG", message);
-    }
 
 
 
@@ -116,7 +77,7 @@ public class Logger {
                 }
             }else{
                 try {
-                    consoleReader.println(Ansi.ansi().eraseLine(Ansi.Erase.ALL).toString() + colorString("§7[§f" + simpleDateFormat.format(System.currentTimeMillis()) +"§7] §b"+ prefix + "§8: §7" + Color.RESET.getAnsiCode() + message + Color.RESET.getAnsiCode()));
+                    consoleReader.println(Ansi.ansi().eraseLine(Ansi.Erase.ALL).toString() + colorString("§7[§f" + simpleDateFormat.format(System.currentTimeMillis()) +"§7] §b"+ prefix + "§7: §r" + Color.RESET.getAnsiCode() + message + Color.RESET.getAnsiCode()));
 
                     consoleReader.drawLine();
                     consoleReader.flush();
@@ -126,8 +87,9 @@ public class Logger {
             }
             if(!usedcommand){
 
-                consoleReader.setPrompt(colorString("§bVapefCloud §7» §7"));
-                consoleReader.resetPromptLine(colorString("§bVape§fCloud §7» §7"), inline, inline.length());
+                String coloredPromp = colorString("§bVape§fCloud §7> §7");
+                consoleReader.setPrompt(colorString(coloredPromp));
+                consoleReader.resetPromptLine(colorString(coloredPromp), inline, inline.length());
 
             }
         }catch (Exception e){

@@ -74,7 +74,6 @@ public enum Color {
      * Cyan color.
      */
     CYAN( '3', Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.CYAN).boldOff().toString());
-
     private final String ansiCode;
 
     private final char index;

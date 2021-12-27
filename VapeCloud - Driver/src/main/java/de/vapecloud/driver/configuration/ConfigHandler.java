@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.vapecloud.driver.VapeDriver;
+import de.vapecloud.driver.console.logger.enums.MessageType;
 import lombok.SneakyThrows;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -40,8 +41,10 @@ public class ConfigHandler {
 
 
 
-    public String convertToString(IConfig iconfig){
-        return gson.toJson(iconfig);
+    @SneakyThrows
+    public IConfig convertToClass(String json, Class<? extends IConfig> tClass){
+        ObjectMapper objectMapper = new ObjectMapper();
+        return (IConfig)objectMapper.readValue(json, tClass);
     }
 
     public String convertToJson(IConfig iconfig) {
@@ -69,11 +72,11 @@ public class ConfigHandler {
                 try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.filelocation), StandardCharsets.UTF_8)) {
                     GSON.toJson(iconfig, writer);
                 } catch (IOException e) {
-                    VapeDriver.consolHandler.getLogger().error(false, "" + e.getMessage());
+                    VapeDriver.consolHandler.getLogger().sendMessage(MessageType.ERROR,false, "" + e.getMessage());
                 }
             }catch (Exception ignored){}
         }else{
-            VapeDriver.consolHandler.getLogger().error(false, "The location or the config is null");
+            VapeDriver.consolHandler.getLogger().sendMessage(MessageType.ERROR,false, "The location or the config is null");
         }
     }
 

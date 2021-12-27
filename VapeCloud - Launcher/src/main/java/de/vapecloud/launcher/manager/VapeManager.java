@@ -7,17 +7,22 @@ package de.vapecloud.launcher.manager;
  */
 
 
+import de.vapecloud.driver.VapeDriver;
 import de.vapecloud.driver.configuration.ConfigHandler;
+import de.vapecloud.launcher.manager.commands.ClearConsolCommand;
+import de.vapecloud.launcher.manager.commands.ExitCommand;
+import de.vapecloud.launcher.manager.commands.HelpCommand;
 
 public class VapeManager {
 
     public void initVapeManager(){
 
 
-        new ConfigHandler("./test.json").saveConfig(new testConfig("test"));
-        testConfig testConfig = (testConfig) new ConfigHandler("./test.json").getConfig(testConfig.class);
+        VapeDriver.consolHandler.getCommandHandler().registerCommand(new HelpCommand("help", "here you will find all commands", "?", "ls", "ask"));
+        VapeDriver.consolHandler.getCommandHandler().registerCommand(new ClearConsolCommand("clear", "clean the console of the cloud", "cls"));
+        VapeDriver.consolHandler.getCommandHandler().registerCommand(new ExitCommand("exit", "Shut down the cloud completely", "shutdown", "kill", "quit", "end"));
 
-        System.out.println(testConfig.getTest());
+
 
         while (true){}
 
