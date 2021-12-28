@@ -16,13 +16,13 @@ public class ChannelPipeline {
 
 
 
-    public ChannelPipeline codec(IPacketEncoder encoder) {
+    public ChannelPipeline addLast(IPacketEncoder encoder) {
         if (encoder == null) return this;
         this.encoder = encoder;
         return this;
     }
 
-    public ChannelPipeline codec(IPacketDecoder decoder) {
+    public ChannelPipeline addLast(IPacketDecoder decoder) {
         if (decoder == null) return this;
         this.decoder = decoder;
         return this;

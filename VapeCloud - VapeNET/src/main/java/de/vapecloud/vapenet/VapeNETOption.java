@@ -10,6 +10,7 @@ public class VapeNETOption<T> {
 
     public static final VapeNETOption<Integer> TIMEOUT = new VapeNETOption<>(-1);
     public static final VapeNETOption<Integer> BUFFER_SIZE = new VapeNETOption<>(1024);
+    public static final VapeNETOption<Integer> TEST = new VapeNETOption<>(1024);
     protected T value;
 
     protected VapeNETOption(T value) {

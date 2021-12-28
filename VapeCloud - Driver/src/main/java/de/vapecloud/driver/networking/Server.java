@@ -12,7 +12,6 @@ import de.vapecloud.vapenet.VapeNETServer;
 import de.vapecloud.vapenet.channel.ChannelPipeline;
 import de.vapecloud.vapenet.VapeNetBootStrap;
 import de.vapecloud.vapenet.handlers.PacketManager;
-import lombok.SneakyThrows;
 
 public class Server {
 
@@ -31,14 +30,17 @@ public class Server {
     }
 
 
-    @SneakyThrows
     public void create(){
-        VapeNetBootStrap.packetManager = new PacketManager();
-        VapeNetBootStrap.server = new VapeNETServer();
-        VapeNetBootStrap.server.init(channel -> {
-            ChannelPipeline pipeline = channel.getPipeline();
-            pipeline.codec(new PacketDecoder());
-            pipeline.codec(new PacketEntcoder());
-        }).bind(this.port);
+        try {
+            VapeNetBootStrap.packetManager = new PacketManager();
+            VapeNetBootStrap.server = new VapeNETServer();
+            VapeNetBootStrap.server.init(channel -> {
+                ChannelPipeline pipeline = channel.getPipeline();
+                pipeline.addLast(new PacketDecoder());
+                pipeline.addLast(new PacketEntcoder());
+            }).bind(this.port);
+        }catch (Exception e){
+
+        }
     }
 }

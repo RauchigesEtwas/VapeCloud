@@ -13,7 +13,7 @@ import de.vapecloud.vapenet.VapeNETOption;
 import de.vapecloud.vapenet.channel.ChannelPipeline;
 import de.vapecloud.vapenet.VapeNetBootStrap;
 import de.vapecloud.vapenet.handlers.PacketManager;
-import lombok.SneakyThrows;
+
 
 public class Client {
 
@@ -29,15 +29,18 @@ public class Client {
         return this;
     }
 
-    @SneakyThrows
     public void create(){
-        VapeNetBootStrap.packetManager = new PacketManager();
-        VapeNetBootStrap.client = new VapeNETClient();
-        VapeNetBootStrap.client.init(channel -> {
-            ChannelPipeline pipeline = channel.getPipeline();
-            pipeline.codec(new PacketDecoder());
-            pipeline.codec(new PacketEntcoder());
+        try {
+            VapeNetBootStrap.packetManager = new PacketManager();
+            VapeNetBootStrap.client = new VapeNETClient();
+            VapeNetBootStrap.client.init(channel -> {
+                ChannelPipeline pipeline = channel.getPipeline();
+                pipeline.addLast(new PacketDecoder());
+                pipeline.addLast(new PacketEntcoder());
 
-        }).bind(this.host, this.port).connect();
+            }).option(VapeNETOption.TEST, 2).bind(this.host, this.port).connect();
+        }catch (Exception e){
+
+        }
     }
 }
