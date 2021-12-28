@@ -10,19 +10,12 @@ import de.vapecloud.vapenet.handlers.PacketManager;
 
 public class VapeNetBootStrap {
 
-    private static VapeNetBootStrap instance;
-    public PacketManager packetManager;
-    public VapeNETServer server;
-    public VapeNETClient client;
+    public static PacketManager packetManager;
+    public static VapeNETServer server;
+    public static VapeNETClient client;
 
-    public VapeNetBootStrap() {
-        packetManager = new PacketManager();
-        instance = this;
-    }
 
-    public static VapeNetBootStrap getInstance() {
-        return instance;
-    }
+
 
 
 }

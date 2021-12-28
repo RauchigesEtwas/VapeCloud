@@ -52,10 +52,8 @@ public class VapeNETChannel implements IChannel, Runnable {
         try {
             socket.connect(address);
             connected = true;
-
-            socket.getChannel().configureBlocking(structure.getOption(VapeNETOption.DENNY_NIO));
             initializer.initChannel(this);
-            VapeNetBootStrap.getInstance().packetManager.getAllListeners().forEach(packetHandler -> {
+            VapeNetBootStrap.packetManager.getAllListeners().forEach(packetHandler -> {
                packetHandler.handleConnected(this);
             });
         } catch (IOException e) {
@@ -83,16 +81,16 @@ public class VapeNETChannel implements IChannel, Runnable {
                     array.write(read);
                 }
                 Packet decode = pipeline.getDecoder().decode(new Packet(), new PacketBuffer(array.toByteArray()));
-                VapeNetBootStrap.getInstance().packetManager.getAllListeners().forEach(packetHandler -> {
+                VapeNetBootStrap.packetManager.getAllListeners().forEach(packetHandler -> {
                     packetHandler.handlePacket(this, decode);
                 });
             } catch (IOException e) {
-                VapeNetBootStrap.getInstance().packetManager.getAllListeners().forEach(packetHandler -> {
+                VapeNetBootStrap.packetManager.getAllListeners().forEach(packetHandler -> {
                     packetHandler.handleException(e);
                 });
                 close();
             } catch (Exception exception) {
-                VapeNetBootStrap.getInstance().packetManager.getAllListeners().forEach(packetHandler -> {
+                VapeNetBootStrap.packetManager.getAllListeners().forEach(packetHandler -> {
                     packetHandler.handleException(exception);
                 });
             }
@@ -106,12 +104,12 @@ public class VapeNETChannel implements IChannel, Runnable {
                 connected = false;
                 socket.close();
                 if (structure instanceof VapeNETServer) ((VapeNETServer) structure).getChannels().remove(this);
-                VapeNetBootStrap.getInstance().packetManager.getAllListeners().forEach(packetHandler -> {
+                VapeNetBootStrap.packetManager.getAllListeners().forEach(packetHandler -> {
                     packetHandler.handleDisconnected(this);
                 });
             }
         } catch (IOException e) {
-            VapeNetBootStrap.getInstance().packetManager.getAllListeners().forEach(packetHandler -> {
+            VapeNetBootStrap.packetManager.getAllListeners().forEach(packetHandler -> {
                 packetHandler.handleException(e);
             });
         }
@@ -123,7 +121,7 @@ public class VapeNETChannel implements IChannel, Runnable {
             DataOutputStream data = new DataOutputStream(socket.getOutputStream());
             pipeline.getEncoder().encode(data, packet, new PacketBuffer());
         } catch (IOException e) {
-            VapeNetBootStrap.getInstance().packetManager.getAllListeners().forEach(packetHandler -> {
+            VapeNetBootStrap.packetManager.getAllListeners().forEach(packetHandler -> {
                 packetHandler.handleException(e);
             });
         }

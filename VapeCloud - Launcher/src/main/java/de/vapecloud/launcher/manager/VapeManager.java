@@ -39,10 +39,10 @@ public class VapeManager {
 
 
     private void registerNetworking(SettingsConfig settingsConfig){
-
+        new VapeNetBootStrap();
         VapeDriver.getInstance().getNetworkHandler().server = new Server();
         VapeDriver.getInstance().getNetworkHandler().server.bind(settingsConfig.getInternalPort()).create();
-        VapeNetBootStrap.getInstance().packetManager.addPacketHandler(new ClientConnectHandler());
+        VapeNetBootStrap.packetManager.addPacketHandler(new ClientConnectHandler());
     }
 
     private void registerCommands(){

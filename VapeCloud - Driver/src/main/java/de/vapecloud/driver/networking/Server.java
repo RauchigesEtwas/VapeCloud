@@ -11,6 +11,7 @@ import de.vapecloud.driver.networking.codec.PacketEntcoder;
 import de.vapecloud.vapenet.VapeNETServer;
 import de.vapecloud.vapenet.channel.ChannelPipeline;
 import de.vapecloud.vapenet.VapeNetBootStrap;
+import de.vapecloud.vapenet.handlers.PacketManager;
 import lombok.SneakyThrows;
 
 public class Server {
@@ -32,9 +33,9 @@ public class Server {
 
     @SneakyThrows
     public void create(){
-        new VapeNetBootStrap();
-        VapeNetBootStrap.getInstance().server = new VapeNETServer();
-        VapeNetBootStrap.getInstance().server.init(channel -> {
+        VapeNetBootStrap.packetManager = new PacketManager();
+        VapeNetBootStrap.server = new VapeNETServer();
+        VapeNetBootStrap.server.init(channel -> {
             ChannelPipeline pipeline = channel.getPipeline();
             pipeline.codec(new PacketDecoder());
             pipeline.codec(new PacketEntcoder());

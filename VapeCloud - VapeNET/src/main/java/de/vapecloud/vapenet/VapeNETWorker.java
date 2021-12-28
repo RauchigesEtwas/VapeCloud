@@ -65,13 +65,13 @@ public class VapeNETWorker implements Runnable, IVapeNETStructure{
                 channels.add(channel);
                 if (initializer != null) initializer.initChannel(channel);
 
-                VapeNetBootStrap.getInstance().packetManager.getAllListeners().forEach(packetHandler -> {
+                VapeNetBootStrap.packetManager.getAllListeners().forEach(packetHandler -> {
                     packetHandler.handleConnected(channel);
                 });
                 channel.start();
             } catch (IOException e) {
 
-                VapeNetBootStrap.getInstance().packetManager.getAllListeners().forEach(packetHandler -> {
+                VapeNetBootStrap.packetManager.getAllListeners().forEach(packetHandler -> {
                     packetHandler.handleException(e);
                 });
                 close();
@@ -86,7 +86,7 @@ public class VapeNETWorker implements Runnable, IVapeNETStructure{
             for (int i = channels.size() - 1; i >= 0; i--) channels.get(i).close();
             socket.close();
         } catch (IOException e) {
-            VapeNetBootStrap.getInstance().packetManager.getAllListeners().forEach(packetHandler -> {
+            VapeNetBootStrap.packetManager.getAllListeners().forEach(packetHandler -> {
                 packetHandler.handleException(e);
             });
         }

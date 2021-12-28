@@ -8,14 +8,8 @@ package de.vapecloud.vapenet;
 
 public class VapeNETOption<T> {
 
-
     public static final VapeNETOption<Integer> TIMEOUT = new VapeNETOption<>(-1);
     public static final VapeNETOption<Integer> BUFFER_SIZE = new VapeNETOption<>(1024);
-    public static final VapeNETOption<Boolean> DENNY_NIO = new VapeNETOption<>(true);
-    public static final VapeNETOption<Boolean> TCP_DELAY = new VapeNETOption<>(false);
-    public static final VapeNETOption<Boolean> KEEPALIVE = new VapeNETOption<>(true);
-    public static final VapeNETOption<Boolean> AUTOKRECONNECT = new VapeNETOption<>(false);
-
     protected T value;
 
     protected VapeNETOption(T value) {

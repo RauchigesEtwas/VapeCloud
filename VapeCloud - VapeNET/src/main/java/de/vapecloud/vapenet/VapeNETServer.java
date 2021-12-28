@@ -40,7 +40,6 @@ public class VapeNETServer implements IVapeNETStructure {
     }
 
     public void bind(int port) throws IOException {
-        worker.getSocket().getChannel().configureBlocking(getOption(VapeNETOption.DENNY_NIO));
         worker.bind(new InetSocketAddress(port));
     }
 

@@ -34,9 +34,10 @@ public class VapeCluster {
     }
 
     private void registerNetworking(SettingsConfig settingsConfig){
+        new VapeNetBootStrap();
         VapeDriver.getInstance().getNetworkHandler().client = new Client();
         VapeDriver.getInstance().getNetworkHandler().client.bind(settingsConfig.getManagerAddresse(), settingsConfig.getInternalPort()).create();
-        VapeNetBootStrap.getInstance().packetManager.addPacketHandler(new AuthRequestHandler());
+        VapeNetBootStrap.packetManager.addPacketHandler(new AuthRequestHandler());
 
 
     }

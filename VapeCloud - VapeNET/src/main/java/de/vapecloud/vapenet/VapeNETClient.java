@@ -36,9 +36,6 @@ public class VapeNETClient implements IVapeNETStructure{
 
     public void connect() throws IOException {
         channel.connect(new InetSocketAddress(host,port));
-        channel.getSocket().getChannel().configureBlocking(getOption(VapeNETOption.DENNY_NIO));
-        channel.getSocket().setTcpNoDelay(getOption(VapeNETOption.TCP_DELAY));
-        channel.getSocket().setKeepAlive(getOption(VapeNETOption.KEEPALIVE));
         channel.start();
 
     }
