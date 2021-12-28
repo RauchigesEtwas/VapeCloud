@@ -6,19 +6,16 @@ package de.vapecloud.driver.networking;
  * Created by Robin B. (RauchigesEtwas)
  */
 
+import de.vapecloud.driver.networking.codec.PacketDecoder;
+import de.vapecloud.driver.networking.codec.PacketEntcoder;
 import de.vapecloud.vapenet.VapeNETClient;
-import de.vapecloud.vapenet.channel.ChannelHandler;
+import de.vapecloud.vapenet.VapeNETOption;
 import de.vapecloud.vapenet.channel.ChannelPipeline;
-import de.vapecloud.vapenet.channel.IChannel;
-import de.vapecloud.vapenet.channel.IChannelInitializer;
-import de.vapecloud.vapenet.protocol.Packet;
+import de.vapecloud.vapenet.VapeNetBootStrap;
 import lombok.SneakyThrows;
-
-import java.io.IOException;
 
 public class Client {
 
-    private VapeNETClient client;
     private int port;
     private String host;
 
@@ -31,45 +28,15 @@ public class Client {
         return this;
     }
 
-    public VapeNETClient getClient() {
-        return client;
-    }
-
     @SneakyThrows
     public void create(){
-
-        this.client = new VapeNETClient();
-        client.init(channel -> {
+        new VapeNetBootStrap();
+        VapeNetBootStrap.getInstance().client = new VapeNETClient();
+        VapeNetBootStrap.getInstance().client.init(channel -> {
             ChannelPipeline pipeline = channel.getPipeline();
-            pipeline.handle(new ChannelHandler() {
-                @Override
-                public void handlePacket(IChannel channel, Packet packet) throws IOException {
-                    client.getPacketManager().getAllListeners().forEach(handler -> {
-                        handler.handlePacket(channel, packet);
-                    });
-                }
+            pipeline.codec(new PacketDecoder());
+            pipeline.codec(new PacketEntcoder());
 
-                @Override
-                public void handleConnected(IChannel channel) throws IOException {
-                    client.getPacketManager().getAllListeners().forEach(handler -> {
-                        handler.handleConnected(channel);
-                    });
-                }
-
-                @Override
-                public void handleDisconnected(IChannel channel) throws IOException {
-                    client.getPacketManager().getAllListeners().forEach(handler -> {
-                        handler.handleDisconnected(channel);
-                    });
-                }
-
-                @Override
-                public void handleException(Exception exception) {
-                    client.getPacketManager().getAllListeners().forEach(handler -> {
-                        handler.handleException(exception);
-                    });
-                }
-            });
-        }).bind(this.host, this.port).connect();
+        }).bind(this.host, this.port).option(VapeNETOption.DENNY_NIO, false).option(VapeNETOption.KEEPALIVE, this).connect();
     }
 }

@@ -13,11 +13,11 @@ import de.vapecloud.driver.console.logger.enums.MessageType;
 import de.vapecloud.driver.networking.packets.AuthClientPacket;
 import de.vapecloud.driver.networking.packets.AuthRequestPacket;
 import de.vapecloud.vapenet.channel.IChannel;
-import de.vapecloud.vapenet.handlers.IPacketHandler;
+import de.vapecloud.vapenet.handlers.PacketHandler;
 import de.vapecloud.vapenet.handlers.PacketManager;
 import de.vapecloud.vapenet.protocol.Packet;
 
-public class AuthRequestHandler implements IPacketHandler {
+public class AuthRequestHandler extends PacketHandler {
 
     @Override
     public void handleConnected(IChannel channel) {

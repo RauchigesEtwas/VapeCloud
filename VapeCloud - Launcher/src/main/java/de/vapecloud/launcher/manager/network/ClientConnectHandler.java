@@ -13,13 +13,13 @@ import de.vapecloud.driver.console.logger.enums.MessageType;
 import de.vapecloud.driver.networking.packets.AuthClientPacket;
 import de.vapecloud.driver.networking.packets.AuthRequestPacket;
 import de.vapecloud.vapenet.channel.IChannel;
-import de.vapecloud.vapenet.handlers.IPacketHandler;
+import de.vapecloud.vapenet.handlers.PacketHandler;
 import de.vapecloud.vapenet.protocol.Packet;
 import lombok.SneakyThrows;
 
 import java.util.UUID;
 
-public class ClientConnectHandler implements IPacketHandler {
+public class ClientConnectHandler extends PacketHandler {
 
 
     @Override

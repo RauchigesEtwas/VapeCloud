@@ -10,16 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PacketManager {
-    private List<IPacketHandler> listeners;
+    private List<PacketHandler> listeners;
 
 
     public PacketManager() {
         this.listeners = new ArrayList<>();
     }
-    public List<IPacketHandler> getAllListeners(){
+    public List<PacketHandler> getAllListeners(){
         return listeners;
     }
-    public void addPacketHandler(IPacketHandler listener){
+    public void addPacketHandler(PacketHandler listener){
         listeners.add(listener);
     }
 

@@ -11,16 +11,10 @@ import de.vapecloud.vapenet.protocol.codec.IPacketEncoder;
 
 public class ChannelPipeline {
 
-    private ChannelHandler handler = new ChannelHandler();
-
     private IPacketEncoder encoder = new IPacketEncoder.NetPacketEncoder();
     private IPacketDecoder decoder = new IPacketDecoder.NetPacketDecoder();
 
-    public ChannelPipeline handle(ChannelHandler handler) {
-        if (handler == null) return this;
-        this.handler = handler;
-        return this;
-    }
+
 
     public ChannelPipeline codec(IPacketEncoder encoder) {
         if (encoder == null) return this;
@@ -34,9 +28,6 @@ public class ChannelPipeline {
         return this;
     }
 
-    public ChannelHandler getHandler() {
-        return handler;
-    }
 
     public IPacketEncoder getEncoder() {
         return encoder;

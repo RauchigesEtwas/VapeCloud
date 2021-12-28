@@ -16,6 +16,7 @@ import de.vapecloud.launcher.manager.commands.ClearConsolCommand;
 import de.vapecloud.launcher.manager.commands.ExitCommand;
 import de.vapecloud.launcher.manager.commands.HelpCommand;
 import de.vapecloud.launcher.manager.network.ClientConnectHandler;
+import de.vapecloud.vapenet.VapeNetBootStrap;
 import de.vapecloud.vapenet.channel.ChannelPipeline;
 import de.vapecloud.vapenet.channel.IChannel;
 import de.vapecloud.vapenet.channel.IChannelInitializer;
@@ -41,7 +42,7 @@ public class VapeManager {
 
         VapeDriver.getInstance().getNetworkHandler().server = new Server();
         VapeDriver.getInstance().getNetworkHandler().server.bind(settingsConfig.getInternalPort()).create();
-        VapeDriver.getInstance().getNetworkHandler().server.getServer().getPacketManager().addPacketHandler(new ClientConnectHandler());
+        VapeNetBootStrap.getInstance().packetManager.addPacketHandler(new ClientConnectHandler());
     }
 
     private void registerCommands(){

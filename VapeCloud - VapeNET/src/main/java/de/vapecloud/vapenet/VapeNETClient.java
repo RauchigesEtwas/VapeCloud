@@ -20,17 +20,13 @@ public class VapeNETClient implements IVapeNETStructure{
 
     private final VapeNETChannel channel = new VapeNETChannel(this);
 
-    private PacketManager packetManager;
     private String host;
     private Integer port;
 
     public VapeNETClient() {
-        packetManager = new PacketManager();
     }
 
-    public PacketManager getPacketManager() {
-        return packetManager;
-    }
+
 
     public VapeNETClient bind(String host, int port) {
         this.host = host;
@@ -40,7 +36,11 @@ public class VapeNETClient implements IVapeNETStructure{
 
     public void connect() throws IOException {
         channel.connect(new InetSocketAddress(host,port));
+        channel.getSocket().getChannel().configureBlocking(getOption(VapeNETOption.DENNY_NIO));
+        channel.getSocket().setTcpNoDelay(getOption(VapeNETOption.TCP_DELAY));
+        channel.getSocket().setKeepAlive(getOption(VapeNETOption.KEEPALIVE));
         channel.start();
+
     }
 
     @Override

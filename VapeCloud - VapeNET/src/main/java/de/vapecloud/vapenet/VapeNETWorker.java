@@ -41,6 +41,10 @@ public class VapeNETWorker implements Runnable, IVapeNETStructure{
         }
     }
 
+    public ServerSocket getSocket() {
+        return socket;
+    }
+
     public void bind(InetSocketAddress address) throws IOException {
         socket.bind(address);
         if (getOption(VapeNETOption.TIMEOUT) > 0) socket.setSoTimeout(getOption(VapeNETOption.TIMEOUT));
@@ -53,12 +57,23 @@ public class VapeNETWorker implements Runnable, IVapeNETStructure{
         while (connected) {
             try {
                 VapeNETChannel channel = new VapeNETChannel(this, socket.accept());
+
+                if (channel == null){
+                    return;
+                }
+
                 channels.add(channel);
                 if (initializer != null) initializer.initChannel(channel);
-                channel.getPipeline().getHandler().handleConnected(channel);
+
+                VapeNetBootStrap.getInstance().packetManager.getAllListeners().forEach(packetHandler -> {
+                    packetHandler.handleConnected(channel);
+                });
                 channel.start();
             } catch (IOException e) {
-                pipeline.getHandler().handleException(e);
+
+                VapeNetBootStrap.getInstance().packetManager.getAllListeners().forEach(packetHandler -> {
+                    packetHandler.handleException(e);
+                });
                 close();
             }
         }
@@ -71,13 +86,16 @@ public class VapeNETWorker implements Runnable, IVapeNETStructure{
             for (int i = channels.size() - 1; i >= 0; i--) channels.get(i).close();
             socket.close();
         } catch (IOException e) {
-            pipeline.getHandler().handleException(e);
+            VapeNetBootStrap.getInstance().packetManager.getAllListeners().forEach(packetHandler -> {
+                packetHandler.handleException(e);
+            });
         }
     }
 
     @Override
     public void sendPacket(Packet packet) {
-        for (int i = channels.size() - 1; i >= 0; i--) channels.get(i).sendPacket(packet);
+        if(packet != null)
+            for (int i = channels.size() - 1; i >= 0; i--) channels.get(i).sendPacket(packet);
     }
 
     @Override
