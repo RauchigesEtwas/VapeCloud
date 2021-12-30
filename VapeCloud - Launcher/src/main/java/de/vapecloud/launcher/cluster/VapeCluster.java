@@ -30,6 +30,12 @@ public class VapeCluster {
 
         VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, false, "Try to connect with the manager (Address: §e"+settingsConfig.getManagerAddresse()+"§7 / Port: §e"+settingsConfig.getInternalPort()+"");
         registerNetworking(settingsConfig);
+
+
+
+        long time =       VapeDriver.getInstance().getVapeSettings().getStartCount();
+        long finalTime =  (System.currentTimeMillis() - time);
+        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, false, "the cloud is now ready for use (§e"+finalTime+" ms§r)");
         while (true){}
     }
 
@@ -38,7 +44,5 @@ public class VapeCluster {
         VapeDriver.getInstance().getNetworkHandler().client = new Client();
         VapeDriver.getInstance().getNetworkHandler().client.bind(settingsConfig.getManagerAddresse(), settingsConfig.getInternalPort()).create();
         VapeNetBootStrap.packetManager.addPacketHandler(new AuthRequestHandler());
-
-
     }
 }

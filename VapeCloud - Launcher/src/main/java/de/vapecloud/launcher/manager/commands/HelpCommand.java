@@ -38,12 +38,12 @@ public class HelpCommand extends ICommand {
                 }
             }
 
-            VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION,true, "   -> " + cmd.getName() + " - Aliases: §e[" +aliases+"] §7~ §f" + cmd.getDescription());
+            VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION,true, "   -> §e" + cmd.getName() + " §7- Aliases: §6[" +aliases+"] §7~ §f" + cmd.getDescription());
         });
         VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, true, "");
-        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, true, "Threads§7: §b"+ Runtime.getRuntime().availableProcessors());
-        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, true, "OS§7: §b"+ System.getProperty("os.name"));
-        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, true, "Support§7: §bhttps://discord.gg/4kKEcaP9W");
+        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, true, "Threads§7: §e"+ Runtime.getRuntime().availableProcessors());
+        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, true, "OS§7: §e"+ System.getProperty("os.name"));
+        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, true, "Support§7: §ehttps://discord.gg/4kKEcaP9W");
         return false;
     }
 }

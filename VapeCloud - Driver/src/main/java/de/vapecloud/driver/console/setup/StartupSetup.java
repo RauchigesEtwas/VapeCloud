@@ -14,6 +14,7 @@ import de.vapecloud.driver.console.logger.enums.MessageType;
 import lombok.SneakyThrows;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -21,8 +22,7 @@ import java.util.UUID;
 public class StartupSetup {
 
 
-    @SneakyThrows
-    public StartupSetup(String line) {
+    public StartupSetup(String line) throws IOException {
         if(VapeDriver.getInstance().getVapeSettings().getSetupData().setupStep == 0){
             if(line.equalsIgnoreCase("cluster")){
 
@@ -124,7 +124,7 @@ public class StartupSetup {
 
 
                     new File("./running/").mkdirs();
-                    new File("./module/").mkdirs();
+                    new File("./modules/").mkdirs();
                     new File("./local/templates").mkdirs();
                     new File("./local/GLOBAL").mkdirs();
                     new File("./local/storage").mkdirs();

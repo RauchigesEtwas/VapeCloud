@@ -7,5 +7,5 @@ package de.vapecloud.driver.console.logger.enums;
  */
 
 public enum MessageType {
-    INFORMATION, SETUP, NETWORK, EMPTY, ERROR, WARNING
+    INFORMATION, SETUP, NETWORK, EMPTY, ERROR, WARNING, MODULE
 }

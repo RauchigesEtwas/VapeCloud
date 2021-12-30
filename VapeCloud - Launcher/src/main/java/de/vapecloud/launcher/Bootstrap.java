@@ -5,11 +5,12 @@ import de.vapecloud.driver.configuration.ConfigHandler;
 import de.vapecloud.driver.configuration.configs.SettingsConfig;
 import de.vapecloud.driver.console.ConsolHandler;
 import de.vapecloud.driver.console.logger.enums.MessageType;
+import de.vapecloud.driver.utils.download.Downloader;
 import de.vapecloud.driver.utils.setup.SetupTypes;
 import de.vapecloud.launcher.cluster.VapeCluster;
 import de.vapecloud.launcher.manager.VapeManager;
-import lombok.SneakyThrows;
 
+import java.io.File;
 import java.util.HashMap;
 
 
@@ -22,9 +23,9 @@ import java.util.HashMap;
 public class Bootstrap {
 
 
-    @SneakyThrows
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         new VapeDriver();
+        VapeDriver.getInstance().getVapeSettings().setStartCount(System.currentTimeMillis());
         if (VapeDriver.getInstance().getConsolHandler() == null){
             VapeDriver.getInstance().setConsolHandler(new ConsolHandler());
             VapeDriver.getInstance().getConsolHandler().createHandel("CONSOLE");
@@ -49,6 +50,11 @@ public class Bootstrap {
             VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.SETUP,false, "Options: Manager / Cluster");
             while (true){}
         }else{
+
+            if(!new File("./local/server-icon.png").exists()){
+                new Downloader("server-icon.png", "./local/", "https://i.ibb.co/tPnQzZF/logo.png");
+            }
+
             VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION,false, "The cloud is ready for takeoff");
 
           SettingsConfig settingsConfig = (SettingsConfig) new ConfigHandler("./settings.json").getConfig(SettingsConfig.class);

@@ -7,8 +7,7 @@ package de.vapecloud.driver.utils;
  */
 
 import de.vapecloud.driver.utils.setup.SetupData;
-import lombok.Getter;
-import lombok.Setter;
+
 
 import java.util.HashMap;
 
@@ -16,10 +15,51 @@ public class VapeSettings {
 
     public VapeSettings() {}
 
-    @Getter private DataCenter dataCenter = new DataCenter();
-    @Getter private SetupData setupData = new SetupData();
-    @Getter @Setter private boolean runningaCluster = false;
-    @Getter @Setter private String cloudVersion = "Earthquake-1.0.0";
+    private DataCenter dataCenter = new DataCenter();
+    private SetupData setupData = new SetupData();
+    private boolean runningaCluster = false;
+    private boolean likeShutdown = false;
+    private String cloudVersion = "Earthquake-1.0.0";
+    private Long startCount;
 
 
+    public boolean isLikeShutdown() {
+        return likeShutdown;
+    }
+
+    public void setLikeShutdown(boolean likeShutdown) {
+        this.likeShutdown = likeShutdown;
+    }
+
+    public Long getStartCount() {
+        return startCount;
+    }
+
+    public void setStartCount(Long startCount) {
+        this.startCount = startCount;
+    }
+
+    public void setRunningaCluster(boolean runningaCluster) {
+        this.runningaCluster = runningaCluster;
+    }
+
+    public void setCloudVersion(String cloudVersion) {
+        this.cloudVersion = cloudVersion;
+    }
+
+    public DataCenter getDataCenter() {
+        return dataCenter;
+    }
+
+    public SetupData getSetupData() {
+        return setupData;
+    }
+
+    public boolean isRunningaCluster() {
+        return runningaCluster;
+    }
+
+    public String getCloudVersion() {
+        return cloudVersion;
+    }
 }

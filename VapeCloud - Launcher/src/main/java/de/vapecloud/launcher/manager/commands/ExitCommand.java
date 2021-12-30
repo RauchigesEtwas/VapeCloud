@@ -6,8 +6,14 @@ package de.vapecloud.launcher.manager.commands;
  * Created by Robin B. (RauchigesEtwas)
  */
 
+import de.vapecloud.driver.VapeDriver;
 import de.vapecloud.driver.commandsystem.ICommand;
 import de.vapecloud.driver.commandsystem.ICommandSender;
+import de.vapecloud.driver.console.logger.enums.MessageType;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class ExitCommand extends ICommand {
     public ExitCommand(String commandname, String description, String... aliases) {
@@ -16,7 +22,23 @@ public class ExitCommand extends ICommand {
 
     @Override
     public boolean execute(ICommand command, ICommandSender sender, String[] args) {
-        System.exit(0);
+
+        if(VapeDriver.getInstance().getVapeSettings().isLikeShutdown()){
+            System.exit(0);
+        }else{
+            VapeDriver.getInstance().getVapeSettings().setLikeShutdown(true);
+
+            VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, true, "please enter the §ecommand§7 again to confirm you have §e15 seconds §7to do so");
+
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    VapeDriver.getInstance().getVapeSettings().setLikeShutdown(false);
+                }
+            },1000*15);
+
+        }
         return false;
     }
 }

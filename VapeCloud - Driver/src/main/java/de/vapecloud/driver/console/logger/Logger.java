@@ -1,12 +1,11 @@
 package de.vapecloud.driver.console.logger;
 
-import de.vapecloud.driver.VapeDriver;
 import de.vapecloud.driver.console.logger.enums.Color;
 import de.vapecloud.driver.console.logger.enums.MessageType;
 import jline.console.ConsoleReader;
 import org.fusesource.jansi.Ansi;
+
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 /*
@@ -57,6 +56,8 @@ public class Logger {
                 break;
             case WARNING:
                 printLine(usecommand,"§eWARN", message,null);
+            case MODULE:
+                printLine(usecommand,"MODULE", message,null);
         }
     }
 

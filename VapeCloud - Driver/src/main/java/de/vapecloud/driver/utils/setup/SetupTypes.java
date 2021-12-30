@@ -7,5 +7,5 @@ package de.vapecloud.driver.utils.setup;
  */
 
 public enum SetupTypes {
-    STARTUP, CONTAINER
+    STARTUP, SUBCONTAINER, MAINCONTAINER
 }

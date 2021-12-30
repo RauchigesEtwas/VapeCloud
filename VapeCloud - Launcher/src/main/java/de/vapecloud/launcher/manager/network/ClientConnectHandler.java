@@ -13,13 +13,13 @@ import de.vapecloud.driver.console.logger.enums.MessageType;
 import de.vapecloud.driver.networking.packets.AuthClientPacket;
 import de.vapecloud.driver.networking.packets.AuthRequestPacket;
 import de.vapecloud.vapenet.channel.IChannel;
-import de.vapecloud.vapenet.handlers.PacketHandler;
+import de.vapecloud.vapenet.handlers.PacketListener;
 import de.vapecloud.vapenet.protocol.Packet;
-import lombok.SneakyThrows;
 
+import java.io.IOException;
 import java.util.UUID;
 
-public class ClientConnectHandler extends PacketHandler {
+public class ClientConnectHandler extends PacketListener {
 
 
     @Override
@@ -28,7 +28,6 @@ public class ClientConnectHandler extends PacketHandler {
         channel.sendPacket(new AuthRequestPacket(key));
     }
 
-    @SneakyThrows
     @Override
     public void handlePacket(IChannel channel, Packet packet) {
         if (packet instanceof AuthClientPacket){
@@ -38,7 +37,11 @@ public class ClientConnectHandler extends PacketHandler {
                 if(auth.getClusterAuthKey().equalsIgnoreCase(settingsConfig.getInternalAuthKey())){
                     VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.NETWORK, false, "The cluster §e"+auth.getClientName()+"§7 is now successfully connected and can start services");
                 }else{
-                    channel.close();
+                    try {
+                        channel.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }else{
 

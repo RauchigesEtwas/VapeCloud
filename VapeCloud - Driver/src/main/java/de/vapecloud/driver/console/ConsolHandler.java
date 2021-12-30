@@ -5,9 +5,12 @@ import de.vapecloud.driver.commandsystem.ICommandHandler;
 import de.vapecloud.driver.commandsystem.ICommandSender;
 import de.vapecloud.driver.console.logger.Logger;
 import de.vapecloud.driver.console.logger.enums.MessageType;
+import de.vapecloud.driver.console.setup.MainContainerSetup;
 import de.vapecloud.driver.console.setup.StartupSetup;
+import de.vapecloud.driver.console.setup.SubContainerSetup;
 import de.vapecloud.driver.utils.setup.SetupTypes;
 import lombok.SneakyThrows;
+
 import java.io.IOException;
 
 /*
@@ -36,6 +39,10 @@ public class ConsolHandler extends Thread{
                         if (VapeDriver.getInstance().getVapeSettings().getSetupData().inSetup){
                             if (VapeDriver.getInstance().getVapeSettings().getSetupData().setupTypes == SetupTypes.STARTUP){
                                 new StartupSetup(line);
+                            }else if (VapeDriver.getInstance().getVapeSettings().getSetupData().setupTypes == SetupTypes.MAINCONTAINER){
+                                new MainContainerSetup(line);
+                            }else if (VapeDriver.getInstance().getVapeSettings().getSetupData().setupTypes == SetupTypes.SUBCONTAINER){
+                                new SubContainerSetup(line);
                             }
 
                         }else if (!line.trim().isEmpty()) {
