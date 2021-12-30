@@ -48,7 +48,7 @@ public class ConsolHandler extends Thread{
                         }else if (!line.trim().isEmpty()) {
                             this.getCommandHandler().executeCommand(line, new ICommandSender("console", sender, null, null));
                         }else {
-                            VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, false, "the command was not found please type \"help\" to get help");
+                            VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, true, "the command was not found please type \"help\" to get help");
                         }
                     }
                 }
