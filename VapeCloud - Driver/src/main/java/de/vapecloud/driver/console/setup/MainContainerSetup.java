@@ -24,6 +24,7 @@ public class MainContainerSetup {
             VapeDriver.getInstance().getVapeSettings().getSetupData().inSetup = false;
             VapeDriver.getInstance().getVapeSettings().getSetupData().setupStep = 0;
             VapeDriver.getInstance().getVapeSettings().getSetupData().memoryMessage.forEach((messageType, s) -> VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(messageType, true, s));
+       return;
         }
 
        switch (VapeDriver.getInstance().getVapeSettings().getSetupData().setupStep){

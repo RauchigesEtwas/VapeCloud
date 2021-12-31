@@ -6,6 +6,9 @@ package de.vapecloud.driver.networking;
  * Created by Robin B. (RauchigesEtwas)
  */
 
+import de.vapecloud.driver.networking.client.Client;
+import de.vapecloud.driver.networking.server.Server;
+
 public class NetworkHandler {
 
     public Client client;

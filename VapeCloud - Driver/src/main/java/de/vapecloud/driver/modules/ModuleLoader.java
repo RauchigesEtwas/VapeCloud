@@ -35,10 +35,10 @@ public class ModuleLoader {
 
     }
 
-    public void moduleLoad() {
+    public Properties moduleLoad() {
 
         if (this.file == null){
-            return;
+            return null;
         }
 
         try {
@@ -56,8 +56,9 @@ public class ModuleLoader {
                         Method method = classtoLoad.getDeclaredMethod("moduleLoad");
                         Object instance = classtoLoad.newInstance();
                         Object resuls = method.invoke(instance);
-                        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.MODULE, false, "module §e"+properties.getProperty("name")+" §7was loaded §7(Author: §e"+properties.getProperty("author")+"§7, Version: §e"+properties.getProperty("version")+"§7)");
+                        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.MODULE, false, "module §e"+properties.getProperty("name")+" §7was §aloaded §7[Author: §e"+properties.getProperty("author")+"§7, Version: §e"+properties.getProperty("version")+"§7]");
 
+                        return properties;
                     }catch (Exception ignored){}
 
                 }else {
@@ -68,6 +69,7 @@ public class ModuleLoader {
         }catch (Exception e){
 
         }
+        return null;
     }
 
     public void moduleUnload() {

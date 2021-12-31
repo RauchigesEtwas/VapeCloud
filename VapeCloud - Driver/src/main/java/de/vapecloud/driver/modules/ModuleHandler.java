@@ -11,11 +11,14 @@ import de.vapecloud.driver.console.logger.enums.MessageType;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Properties;
 import java.util.function.Consumer;
 
 public class ModuleHandler {
 
     private ArrayList<String> loadedModules;
+    private HashMap<String, String> ModuleDataCache;
 
     public ArrayList<String> getLoadedModules() {
         return loadedModules;
@@ -25,6 +28,10 @@ public class ModuleHandler {
         this.loadedModules = new ArrayList<>();
     }
 
+    public HashMap<String, String> getModuleDataCache() {
+        return ModuleDataCache;
+    }
+
     public void loadModules(){
         ArrayList<String> modules = getModules();
 
@@ -32,10 +39,12 @@ public class ModuleHandler {
             VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.MODULE, false, "no §eModule§7 was §efound");
             return;
         }
-
         modules.forEach(s -> {
             loadedModules.add(s);
-            new ModuleLoader(s).moduleLoad();
+            Properties properties = new ModuleLoader(s).moduleLoad();
+            if(properties.getProperty("usetype") != null){
+                ModuleDataCache.put(s, properties.getProperty("usetype"));
+            }
         });
     }
 

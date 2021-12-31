@@ -27,14 +27,14 @@ public class ConsolHandler extends Thread{
 
     public ConsolHandler() {}
 
+
     @SneakyThrows
     @Override
     public void run() {
         while (!isInterrupted() && isAlive()){
                 if(this.commandHandler != null) {
                     String line;
-                    String coloredPromp = getLogger().colorString("§bVape§fCloud §7> §7");
-
+                    String coloredPromp = getLogger().colorString("§bVape§fCloud §7» §7");
                     while ((line = this.getLogger().getConsoleReader().readLine(coloredPromp)) != null) {
                         if (VapeDriver.getInstance().getVapeSettings().getSetupData().inSetup){
                             if (VapeDriver.getInstance().getVapeSettings().getSetupData().setupTypes == SetupTypes.STARTUP){
@@ -48,7 +48,10 @@ public class ConsolHandler extends Thread{
                         }else if (!line.trim().isEmpty()) {
                             this.getCommandHandler().executeCommand(line, new ICommandSender("console", sender, null, null));
                         }else {
-                            VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, true, "the command was not found please type \"help\" to get help");
+                            VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, false, "the command was not found please type \"help\" to get help");
+                            VapeDriver.getInstance().getConsolHandler().getLogger().getConsoleReader().setPrompt("");
+                            VapeDriver.getInstance().getConsolHandler().getLogger().getConsoleReader().resetPromptLine("", "", 0);
+
                         }
                     }
                 }

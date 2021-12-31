@@ -2,7 +2,6 @@ package de.vapecloud.driver;
 
 
 import de.vapecloud.driver.console.ConsolHandler;
-import de.vapecloud.driver.container.ContainerHandler;
 import de.vapecloud.driver.modules.ModuleHandler;
 import de.vapecloud.driver.networking.NetworkHandler;
 import de.vapecloud.driver.process.ProcessHandler;

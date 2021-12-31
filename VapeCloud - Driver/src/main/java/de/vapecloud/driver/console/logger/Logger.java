@@ -56,32 +56,16 @@ public class Logger {
                 break;
             case WARNING:
                 printLine(usecommand,"§eWARN", message,null);
+                break;
             case MODULE:
                 printLine(usecommand,"MODULE", message,null);
+                break;
+            case DEBUG:
+                printLine(usecommand,"DEBUG", message,null);
+                break;
         }
     }
 
-    public void sendMessage(MessageType messageType, boolean usecommand, String message, String print ) {
-        switch (messageType){
-            case INFORMATION:
-                printLine(usecommand,"INFO", message, print);
-                break;
-            case EMPTY:
-                printLine(usecommand,null, message, print);
-                break;
-            case ERROR:
-                printLine(usecommand,"§cERROR", message, print);
-                break;
-            case NETWORK:
-                printLine(usecommand,"NETWORK", message, print);
-                break;
-            case SETUP:
-                printLine(usecommand,"SETUP", message, print);
-                break;
-            case WARNING:
-                printLine(usecommand,"§eWARN", message, print);
-        }
-    }
 
 
 
@@ -116,11 +100,11 @@ public class Logger {
             if(!usedcommand){
 
                 if(print != null){
-                    String coloredPromp = colorString("§bVape§fCloud §7> §7");
+                    String coloredPromp = colorString("§bVape§fCloud §7» §7");
                     consoleReader.setPrompt(colorString(coloredPromp));
                     consoleReader.resetPromptLine(colorString(coloredPromp), print, print.length());
                 }else{
-                    String coloredPromp = colorString("§bVape§fCloud §7> §7");
+                    String coloredPromp = colorString("§bVape§fCloud §7» §7");
                     consoleReader.setPrompt(colorString(coloredPromp));
                     consoleReader.resetPromptLine(colorString(coloredPromp), inline, inline.length());
                 }

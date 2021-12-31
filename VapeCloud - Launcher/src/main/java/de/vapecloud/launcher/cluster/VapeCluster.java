@@ -10,13 +10,9 @@ import de.vapecloud.driver.VapeDriver;
 import de.vapecloud.driver.configuration.ConfigHandler;
 import de.vapecloud.driver.configuration.configs.SettingsConfig;
 import de.vapecloud.driver.console.logger.enums.MessageType;
-import de.vapecloud.driver.networking.Client;
+import de.vapecloud.driver.networking.client.Client;
 import de.vapecloud.launcher.cluster.network.AuthRequestHandler;
-import de.vapecloud.launcher.manager.network.ClientConnectHandler;
 import de.vapecloud.vapenet.VapeNetBootStrap;
-import de.vapecloud.vapenet.channel.ChannelPipeline;
-import de.vapecloud.vapenet.channel.IChannel;
-import de.vapecloud.vapenet.channel.IChannelInitializer;
 
 public class VapeCluster {
 

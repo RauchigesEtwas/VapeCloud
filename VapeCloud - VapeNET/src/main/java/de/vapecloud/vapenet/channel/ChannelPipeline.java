@@ -6,6 +6,8 @@ package de.vapecloud.vapenet.channel;
  * Created by Robin B. (RauchigesEtwas)
  */
 
+import de.vapecloud.vapenet.VapeNetBootStrap;
+import de.vapecloud.vapenet.handlers.PacketListener;
 import de.vapecloud.vapenet.protocol.codec.IPacketDecoder;
 import de.vapecloud.vapenet.protocol.codec.IPacketEncoder;
 
@@ -28,6 +30,10 @@ public class ChannelPipeline {
         return this;
     }
 
+
+    public void addLast(PacketListener packetListener){
+        VapeNetBootStrap.packetManager.addPacketHandler(packetListener);
+    }
 
     public IPacketEncoder getEncoder() {
         return encoder;

@@ -26,14 +26,14 @@ public class StartupSetup {
         if(VapeDriver.getInstance().getVapeSettings().getSetupData().setupStep == 0){
             if(line.equalsIgnoreCase("cluster")){
 
-                VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.SETUP, true, "what is the IP of the manager?", "127.0.0.1");
+                VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.SETUP, true, "what is the IP of the manager?");
                 VapeDriver.getInstance().getVapeSettings().getSetupData().setupStep++;
                 VapeDriver.getInstance().getVapeSettings().getSetupData().setupMemory.put("INSTANCE", "CLUSTER");
                 VapeDriver.getInstance().getConsolHandler().getLogger().getConsoleReader().setPrompt("");
                 VapeDriver.getInstance().getConsolHandler().getLogger().getConsoleReader().resetPromptLine("", "", 0);
             }else if(line.equalsIgnoreCase("manager")){
 
-                VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.SETUP, true, "what is the IP of the manager?", "127.0.0.1");
+                VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.SETUP, true, "what is the IP of the manager?");
                 VapeDriver.getInstance().getVapeSettings().getSetupData().setupStep++;
                 VapeDriver.getInstance().getVapeSettings().getSetupData().setupMemory.put("INSTANCE", "MANAGER");
 
@@ -110,7 +110,14 @@ public class StartupSetup {
                     messages.put("cloud-proxy-only-proxy-join-kick", "§8⮞ §cplease join over the Mainprox");
                     messages.put("cloud-spigot-already-on-fallback", "§8⮞ §cyou are already on a lobby");
                     messages.put("cloud-spigot-no-fallback-found", "§8⮞ §cno Lobby was Found");
-                    ServiceConfig serviceConfig = new ServiceConfig(VapeDriver.getInstance().getVapeSettings().getSetupData().setupMemory.get("SPLITTER"),Integer.valueOf(VapeDriver.getInstance().getVapeSettings().getSetupData().setupMemory.get("PROXYPORT")), Integer.valueOf(VapeDriver.getInstance().getVapeSettings().getSetupData().setupMemory.get("SERVERPORT")), messages);
+                    ArrayList<String> ips = new ArrayList<>();
+                    ips.add("127.0.0.1");
+                    if(ips.contains( VapeDriver.getInstance().getVapeSettings().getSetupData().setupMemory.get("ADDRESS"))){
+                        ips.add( VapeDriver.getInstance().getVapeSettings().getSetupData().setupMemory.get("ADDRESS"));
+                    }
+
+                    ServiceConfig serviceConfig = new ServiceConfig(VapeDriver.getInstance().getVapeSettings().getSetupData().setupMemory.get("SPLITTER"),
+                            Integer.valueOf(VapeDriver.getInstance().getVapeSettings().getSetupData().setupMemory.get("PROXYPORT")), Integer.valueOf(VapeDriver.getInstance().getVapeSettings().getSetupData().setupMemory.get("SERVERPORT")), ips, messages);
                     new ConfigHandler("./service.json").saveConfig( serviceConfig );
 
                     String authKey = UUID.randomUUID().toString()+UUID.randomUUID().toString()+UUID.randomUUID().toString();
