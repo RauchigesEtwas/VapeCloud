@@ -11,11 +11,14 @@ import de.vapecloud.driver.console.logger.enums.MessageType;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Properties;
 import java.util.function.Consumer;
 
 public class ModuleHandler {
 
     private ArrayList<String> loadedModules;
+    private HashMap<String, String> ModuleDataCache;
 
     public ArrayList<String> getLoadedModules() {
         return loadedModules;
@@ -23,6 +26,10 @@ public class ModuleHandler {
 
     public ModuleHandler() {
         this.loadedModules = new ArrayList<>();
+    }
+
+    public HashMap<String, String> getModuleDataCache() {
+        return ModuleDataCache;
     }
 
     public void loadModules(){
@@ -35,7 +42,8 @@ public class ModuleHandler {
 
         modules.forEach(s -> {
             loadedModules.add(s);
-            new ModuleLoader(s).moduleLoad();
+            Properties properties = new ModuleLoader(s).moduleLoad();
+            ModuleDataCache.put(s, properties.getProperty("usetype"));
         });
     }
 

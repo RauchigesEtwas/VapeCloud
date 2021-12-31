@@ -1,0 +1,12 @@
+de\vapecloud\launcher\manager\commands\HelpCommand.class
+de\vapecloud\launcher\manager\commands\ClearConsolCommand.class
+de\vapecloud\launcher\cluster\VapeCluster.class
+de\vapecloud\launcher\manager\commands\ReloadCommand.class
+de\vapecloud\launcher\manager\network\ClientConnectHandler.class
+de\vapecloud\launcher\Bootstrap.class
+de\vapecloud\launcher\cluster\network\AuthRequestHandler.class
+de\vapecloud\launcher\manager\commands\ContainerCommand.class
+de\vapecloud\launcher\manager\commands\ProcessCommand.class
+de\vapecloud\launcher\manager\VapeManager.class
+de\vapecloud\launcher\manager\commands\ExitCommand$1.class
+de\vapecloud\launcher\manager\commands\ExitCommand.class

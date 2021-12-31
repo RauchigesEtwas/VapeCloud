@@ -6,9 +6,27 @@ package de.vapecloud.driver.process;
  * Created by Robin B. (RauchigesEtwas)
  */
 
+import de.vapecloud.driver.container.containers.SubContainer;
+
+import java.lang.management.GarbageCollectorMXBean;
+
 public class ContainerProcess {
 
-    public ContainerProcess() {}
+
+    private String splitter;
+    public Integer runningID;
+    public SubContainer subContainer;
+
+    public ContainerProcess(String splitter, Integer runningID, SubContainer subContainer) {
+        this.splitter = splitter;
+        this.runningID = runningID;
+        this.subContainer = subContainer;
+    }
+
+    public void buildProcess(){
+
+    }
+
 
     public void start(){
 
