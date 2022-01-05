@@ -6,8 +6,6 @@ package de.vapecloud.driver.networking.client;
  * Created by Robin B. (RauchigesEtwas)
  */
 
-import de.vapecloud.driver.networking.bin.PacketDecoder;
-import de.vapecloud.driver.networking.bin.PacketEntcoder;
 import de.vapecloud.vapenet.VapeNETClient;
 import de.vapecloud.vapenet.VapeNETOption;
 import de.vapecloud.vapenet.channel.ChannelPipeline;
@@ -35,11 +33,9 @@ public class Client {
             VapeNetBootStrap.client = new VapeNETClient();
             VapeNetBootStrap.client.init(channel -> {
                 ChannelPipeline pipeline = channel.getPipeline();
-                pipeline.addLast(new PacketDecoder());
-                pipeline.addLast(new PacketEntcoder());
                 pipeline.addLast(new LostConnectionHandler());
 
-            }).option(VapeNETOption.TEST, 2).bind(this.host, this.port).connect();
+            }).bind(this.host, this.port).connect();
         }catch (Exception e){
 
         }

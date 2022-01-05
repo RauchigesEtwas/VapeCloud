@@ -12,6 +12,8 @@ public class ProcessCore {
 
     private String runningCluster;
 
+    private String splitter;
+
     private String processVersion;
 
     private String processModeType;
@@ -30,6 +32,14 @@ public class ProcessCore {
 
     public ProcessCore() { }
 
+
+    public String getSplitter() {
+        return splitter;
+    }
+
+    public void setSplitter(String splitter) {
+        this.splitter = splitter;
+    }
 
     public String getProcessName() {
         return processName;

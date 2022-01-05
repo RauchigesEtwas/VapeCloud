@@ -269,4 +269,8 @@ public class ProcessHandler {
             return false;
         }
     }
+
+    public HashMap<String, ArrayList<RunningProcess>> getProcessesByGroup() {
+        return processesByGroup;
+    }
 }

@@ -31,9 +31,6 @@ public class RunningProcess implements IProcess {
     @Override
     public void runProcess() {
 
-        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, false, "The Process §e"+getProcessCore().getProcessName()+"§7 is being §astarted§7! [Cluster: §e"+
-                getProcessCore().getRunningCluster()+"§7, Data: §e"+getProcessCore().getProcessModeType()+"§7~§e"+processCore.getProvideStartPort()+"§7@§e"+getProcessCore().getProcessVersion()+"§7]");
-
     }
 
     @Override

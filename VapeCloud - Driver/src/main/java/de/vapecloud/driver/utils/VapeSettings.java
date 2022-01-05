@@ -21,7 +21,20 @@ public class VapeSettings {
     private boolean likeShutdown = false;
     private String cloudVersion = "Earthquake-1.0.0";
     private Long startCount;
+    private boolean isClosedByManager = false;
+    private ClusterQueue queue = new ClusterQueue();
 
+    public ClusterQueue getQueue() {
+        return queue;
+    }
+
+    public boolean isClosedByManager() {
+        return isClosedByManager;
+    }
+
+    public void setClosedByManager(boolean closedByManager) {
+        isClosedByManager = closedByManager;
+    }
 
     public boolean isLikeShutdown() {
         return likeShutdown;

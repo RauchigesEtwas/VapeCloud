@@ -14,12 +14,15 @@ import de.vapecloud.driver.configuration.configs.SettingsConfig;
 import de.vapecloud.driver.console.logger.enums.MessageType;
 import de.vapecloud.driver.container.ContainerHandler;
 import de.vapecloud.driver.container.containers.SubContainer;
-import de.vapecloud.driver.container.enums.ContainerModeType;
 import de.vapecloud.driver.networking.server.Server;
 import de.vapecloud.driver.process.bin.ProcessCore;
 import de.vapecloud.launcher.manager.commands.*;
-import de.vapecloud.launcher.manager.network.ClientConnectHandler;
+import de.vapecloud.launcher.manager.network.cluster.ClusterAskForOrdersHandler;
+import de.vapecloud.launcher.manager.network.cluster.ClusterAuthHandler;
 import de.vapecloud.vapenet.VapeNetBootStrap;
+import org.omg.CORBA.NameValuePair;
+
+import java.util.function.BiConsumer;
 
 public class VapeManager {
 
@@ -57,7 +60,7 @@ public class VapeManager {
 
 
          VapeDriver.getInstance().getProcessHandler().addConnectedCluster("InternalCluster");
-
+        shutdownHook();
 
         for (int i = 0; i != containerHandler.getSubContainersFromCluster("InternalCluster").size(); i++) {
             for (int is = 0; is !=   containerHandler.getSubContainersFromCluster("InternalCluster").get(i).getTotalOnline(); is++){
@@ -69,6 +72,15 @@ public class VapeManager {
     }
 
 
+    private void registerNetworking(SettingsConfig settingsConfig){
+        new VapeNetBootStrap();
+        VapeDriver.getInstance().getNetworkHandler().server = new Server();
+        VapeDriver.getInstance().getNetworkHandler().server.bind(settingsConfig.getInternalPort()).create();
+        VapeNetBootStrap.packetManager
+                .addPacketHandler(new ClusterAuthHandler())
+                .addPacketHandler(new ClusterAskForOrdersHandler());
+    }
+
     private void runInternalProcess(SubContainer container,   ServiceConfig serviceConfig){
         Integer id = VapeDriver.getInstance().getProcessHandler().getFreeID(container.getContainerName());
         String processName = container.getContainerName() + serviceConfig.getInternalSplitter() + id;
@@ -79,6 +91,7 @@ public class VapeManager {
             core.setRunningCluster("InternalCluster");
             core.setProcessVersion(container.getContainerVersion().toString());
             core.setProcessModeType(container.getContainerModeType().toString());
+            core.setSplitter(serviceConfig.getInternalSplitter());
 
             if (container.getStaticService()){
                 core.setRunningPath("/running/static/" + container.getContainerName() + "/" + processName + "/");
@@ -95,6 +108,9 @@ public class VapeManager {
             core.setSelectedID(id);
             core.setMinimalMemory(container.getMinimalMemory());
             core.setMaximalMemory(container.getMaximalMemoery());
+
+        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.NETWORK, false, "The Process §e"+core.getProcessName()+"§7 is being §astarted§7! [Cluster: §e"+
+                core.getRunningCluster()+"§7, Data: §e"+core.getProcessModeType()+"§7~§e"+core.getProvideStartPort()+"§7@§e"+core.getProcessVersion()+"§7]");
             VapeDriver.getInstance().getProcessHandler().addProcess(container.getContainerName(), core);
             VapeDriver.getInstance().getProcessHandler().getProcess(processName).runProcess();
 
@@ -102,12 +118,15 @@ public class VapeManager {
     }
 
 
-    private void registerNetworking(SettingsConfig settingsConfig){
-        new VapeNetBootStrap();
-        VapeDriver.getInstance().getNetworkHandler().server = new Server();
-        VapeDriver.getInstance().getNetworkHandler().server.bind(settingsConfig.getInternalPort()).create();
-        VapeNetBootStrap.packetManager.addPacketHandler(new ClientConnectHandler());
+    private void shutdownHook(){
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            VapeDriver.getInstance().getProcessHandler().getProcessFromCluster("InternalCluster").forEach((process, connected) -> {
+               // VapeDriver.getInstance().getProcessHandler().removeProcess(process);
+            });
+            VapeNetBootStrap.server.close();
+        }));
     }
+
 
     private void registerCommands(){
 

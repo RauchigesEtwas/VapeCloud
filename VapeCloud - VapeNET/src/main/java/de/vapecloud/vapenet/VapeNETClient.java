@@ -37,7 +37,6 @@ public class VapeNETClient implements IVapeNETStructure{
     public void connect() throws IOException {
         channel.connect(new InetSocketAddress(host,port));
 
-        System.out.println(getOption(VapeNETOption.TEST));
 
         channel.start();
 

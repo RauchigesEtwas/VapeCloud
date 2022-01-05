@@ -17,6 +17,7 @@ public class LostConnectionHandler extends PacketListener {
         if (exception.getMessage().equalsIgnoreCase("Connection reset")){
             if (VapeDriver.getInstance().getVapeSettings().isRunningaCluster()){
                 VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.NETWORK, false, "The cluster has lost the connection to the manager");
+                System.exit(0);
             }else {
                 System.out.println("NETWORK | Lost Connection!!!!!");
             }

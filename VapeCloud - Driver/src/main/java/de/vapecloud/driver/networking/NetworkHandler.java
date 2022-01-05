@@ -13,5 +13,14 @@ public class NetworkHandler {
 
     public Client client;
     public Server server;
+    private ConnectionHandler connectionHandler;
 
+
+    public NetworkHandler() {
+        this.connectionHandler = new ConnectionHandler();
+    }
+
+    public ConnectionHandler getConnectionHandler() {
+        return connectionHandler;
+    }
 }

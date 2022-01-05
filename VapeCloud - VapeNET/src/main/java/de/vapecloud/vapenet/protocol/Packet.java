@@ -6,11 +6,9 @@ package de.vapecloud.vapenet.protocol;
  * Created by Robin B. (RauchigesEtwas)
  */
 
-public class Packet {
+public abstract class Packet {
 
-    public void write(IPacketBuffer buffer) {
-    }
+    public abstract void write(IPacketBuffer buffer);
 
-    public void read(IPacketBuffer buffer) {
-    }
+    public abstract void read(IPacketBuffer buffer);
 }

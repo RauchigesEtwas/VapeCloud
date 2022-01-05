@@ -24,7 +24,12 @@ public interface IPacketDecoder {
         public Packet decode(Packet packet, PacketBuffer buffer) {
             try {
                 String clazz = buffer.read("clazz", String.class);
-                if (clazz == null) return new Packet();
+                if (clazz == null) return new Packet() {
+                    @Override
+                    public void write(IPacketBuffer buffer) {}
+                    @Override
+                    public void read(IPacketBuffer buffer) {}
+                };
 
                 Packet instance = (Packet) Class.forName(clazz).getConstructor().newInstance();
                 instance.read(buffer);
@@ -32,7 +37,12 @@ public interface IPacketDecoder {
             } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
-            return new Packet();
+            return new Packet() {
+                @Override
+                public void write(IPacketBuffer buffer) {}
+                @Override
+                public void read(IPacketBuffer buffer) {}
+            };
         }
     }
 }

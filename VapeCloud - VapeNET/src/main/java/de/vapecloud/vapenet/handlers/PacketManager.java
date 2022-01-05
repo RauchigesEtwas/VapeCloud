@@ -19,8 +19,9 @@ public class PacketManager {
     public List<PacketListener> getAllListeners(){
         return listeners;
     }
-    public void addPacketHandler(PacketListener listener){
+    public PacketManager addPacketHandler(PacketListener listener){
         listeners.add(listener);
+        return this;
     }
 
 }

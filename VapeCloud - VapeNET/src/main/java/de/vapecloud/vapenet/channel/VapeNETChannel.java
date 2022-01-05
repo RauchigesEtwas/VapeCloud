@@ -7,6 +7,7 @@ package de.vapecloud.vapenet.channel;
  */
 
 import de.vapecloud.vapenet.*;
+import de.vapecloud.vapenet.protocol.IPacketBuffer;
 import de.vapecloud.vapenet.protocol.Packet;
 import de.vapecloud.vapenet.protocol.PacketBuffer;
 
@@ -80,7 +81,12 @@ public class VapeNETChannel implements IChannel, Runnable {
                     }
                     array.write(read);
                 }
-                Packet decode = pipeline.getDecoder().decode(new Packet(), new PacketBuffer(array.toByteArray()));
+                Packet decode = pipeline.getDecoder().decode(new Packet() {
+                    @Override
+                    public void write(IPacketBuffer buffer) {}
+                    @Override
+                    public void read(IPacketBuffer buffer) {}
+                }, new PacketBuffer(array.toByteArray()));
                 VapeNetBootStrap.packetManager.getAllListeners().forEach(packetHandler -> {
                     packetHandler.handlePacket(this, decode);
                 });
