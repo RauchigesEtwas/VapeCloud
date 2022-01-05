@@ -16,13 +16,11 @@ Use of KVM virtualization or dedicated servers is recommended.
 ## Features
 - Plug & Play
 - **Module System** (SmartProxy, Loadbalancer, Sign, Permission)
-- Dynamic / Static Server
-- Multiroot & MultiProxy
-- Ingame Commands
-- Auto-Starting servers
-- A powerful API
-- MultiGroup system
-- Colored Console
+- Dynamic / Static starting Processe
+- MultiRoot & MultiProxy able
+- Balancing Players on Lobbys
+- More Spigot-Vertions upto 1.18.2
+
 
 
 ## Maven:

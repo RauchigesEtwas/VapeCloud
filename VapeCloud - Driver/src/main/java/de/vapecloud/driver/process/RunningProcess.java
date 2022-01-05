@@ -6,8 +6,6 @@ package de.vapecloud.driver.process;
  * Created by Robin B. (RauchigesEtwas)
  */
 
-import de.vapecloud.driver.VapeDriver;
-import de.vapecloud.driver.console.logger.enums.MessageType;
 import de.vapecloud.driver.process.bin.ProcessCore;
 import de.vapecloud.driver.process.interfaces.IProcess;
 

@@ -20,9 +20,6 @@ import de.vapecloud.launcher.manager.commands.*;
 import de.vapecloud.launcher.manager.network.cluster.ClusterAskForOrdersHandler;
 import de.vapecloud.launcher.manager.network.cluster.ClusterAuthHandler;
 import de.vapecloud.vapenet.VapeNetBootStrap;
-import org.omg.CORBA.NameValuePair;
-
-import java.util.function.BiConsumer;
 
 public class VapeManager {
 
