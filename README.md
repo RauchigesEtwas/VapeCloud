@@ -1,5 +1,5 @@
 ![Image of VapeCloud](https://i.ibb.co/yNHfskr/logo-text.png)
-This is the **VapeCloud** project, it is a Minecraft Dynamic CloudSystem based on Netty.
+This is the **VapeCloud** project, it is a Minecraft Dynamic CloudSystem based on Nio-Networking.
 
 **IMPORTENT: this Cloudsystem is still in Development**
 
