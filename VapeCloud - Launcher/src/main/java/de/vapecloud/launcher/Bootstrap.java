@@ -52,7 +52,7 @@ public class Bootstrap {
         }else{
 
             if(!new File("./local/server-icon.png").exists()){
-                new Downloader("server-icon.png", "./local/", "https://i.ibb.co/tPnQzZF/logo.png");
+                new Downloader("server-icon.png", "./local/", "https://i.ibb.co/LSfzr1p/icon.png");
             }
 
             VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION,false, "The cloud is ready for takeoff");

@@ -91,9 +91,9 @@ public class VapeManager {
             core.setSplitter(serviceConfig.getInternalSplitter());
 
             if (container.getStaticService()){
-                core.setRunningPath("/running/static/" + container.getContainerName() + "/" + processName + "/");
+                core.setRunningPath("/live/static/" + container.getContainerName() + "/" + processName + "/");
             }else{
-                core.setRunningPath("/running/dynamic/" + container.getContainerName() + "/" + processName + "/");
+                core.setRunningPath("/live/dynamic/" + container.getContainerName() + "/" + processName + "/");
             }
 
             if (container.getContainerModeType().toString().equalsIgnoreCase("PROXY")){

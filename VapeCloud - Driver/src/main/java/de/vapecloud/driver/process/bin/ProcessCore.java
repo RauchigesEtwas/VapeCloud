@@ -6,6 +6,8 @@ package de.vapecloud.driver.process.bin;
  * Created by Robin B. (RauchigesEtwas)
  */
 
+import java.util.ArrayList;
+
 public class ProcessCore {
 
     private String processName;

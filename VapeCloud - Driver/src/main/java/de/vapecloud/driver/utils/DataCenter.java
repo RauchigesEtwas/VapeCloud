@@ -33,11 +33,11 @@ public class DataCenter {
                 "permissions:\n" +
                 "timeout: 30000\n" +
                 "log_commands: false\n" +
-                "online_mode: false\n" +
+                "online_mode: true\n" +
                 "servers:\n" +
                 "listeners:\n" +
                 "- query_port: "+port+"\n" +
-                "  motd: A UniqueCloud Service\n" +
+                "  motd: \"§8| §bVapeCLoud §8- §7Proxy Service\"\n" +
                 "  priorities:\n" +
                 "  bind_local_address: true\n" +
                 "  tab_list: GLOBAL_PING\n" +
@@ -101,7 +101,7 @@ public class DataCenter {
                 "max-build-height=256\n" +
                 "level-seed=\n" +
                 "enable-rcon=false\n" +
-                "motd=A UniqueCloud Service\n";
+                "motd=\"§8| §bVapeCLoud §8- §7Proxy Service\"\n";
     }
 
     public String[] dropFirstString(String[] input){

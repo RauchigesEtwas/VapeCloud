@@ -18,7 +18,7 @@ import java.util.function.Consumer;
 public class ModuleHandler {
 
     private ArrayList<String> loadedModules;
-    private HashMap<String, String> ModuleDataCache;
+    private HashMap<String, String> moduleDataCache;
 
     public ArrayList<String> getLoadedModules() {
         return loadedModules;
@@ -26,10 +26,11 @@ public class ModuleHandler {
 
     public ModuleHandler() {
         this.loadedModules = new ArrayList<>();
+        this.moduleDataCache  = new HashMap<>();
     }
 
     public HashMap<String, String> getModuleDataCache() {
-        return ModuleDataCache;
+        return moduleDataCache;
     }
 
     public void loadModules(){
@@ -43,7 +44,7 @@ public class ModuleHandler {
             loadedModules.add(s);
             Properties properties = new ModuleLoader(s).moduleLoad();
             if(properties.getProperty("usetype") != null){
-                ModuleDataCache.put(s, properties.getProperty("usetype"));
+                moduleDataCache.put(s, properties.getProperty("usetype"));
             }
         });
     }

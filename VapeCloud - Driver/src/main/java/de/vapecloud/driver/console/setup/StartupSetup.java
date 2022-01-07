@@ -179,7 +179,7 @@ public class StartupSetup {
                 new ConfigHandler("./settings.json").saveConfig(settingsConfig);
 
                 VapeDriver.getInstance().getVapeSettings().getSetupData().setupMemory.clear();
-                new File("./running/").mkdirs();
+                new File("./live/").mkdirs();
                 new File("./local/templates").mkdirs();
                 new File("./local/GLOBAL").mkdirs();
                 new File("./local/storage").mkdirs();
