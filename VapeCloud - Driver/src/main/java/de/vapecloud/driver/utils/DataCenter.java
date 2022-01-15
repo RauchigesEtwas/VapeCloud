@@ -101,7 +101,7 @@ public class DataCenter {
                 "max-build-height=256\n" +
                 "level-seed=\n" +
                 "enable-rcon=false\n" +
-                "motd=\"§8| §bVapeCLoud §8- §7Proxy Service\"\n";
+                "motd=\"VapeCloud - Service\"\n";
     }
 
     public String[] dropFirstString(String[] input){

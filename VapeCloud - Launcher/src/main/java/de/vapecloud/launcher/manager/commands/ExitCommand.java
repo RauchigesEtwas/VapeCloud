@@ -7,13 +7,12 @@ package de.vapecloud.launcher.manager.commands;
  */
 
 import de.vapecloud.driver.VapeDriver;
-import de.vapecloud.driver.commandsystem.ICommand;
-import de.vapecloud.driver.commandsystem.ICommandSender;
+import de.vapecloud.driver.commands.ICommand;
+import de.vapecloud.driver.commands.ICommandSender;
 import de.vapecloud.driver.console.logger.enums.MessageType;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 public class ExitCommand extends ICommand {
     public ExitCommand(String commandname, String description, String... aliases) {

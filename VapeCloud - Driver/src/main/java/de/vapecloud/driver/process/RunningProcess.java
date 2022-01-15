@@ -7,6 +7,9 @@ package de.vapecloud.driver.process;
  */
 
 import de.vapecloud.driver.VapeDriver;
+import de.vapecloud.driver.configuration.ConfigHandler;
+import de.vapecloud.driver.configuration.configs.ProcessConfig;
+import de.vapecloud.driver.configuration.configs.SettingsConfig;
 import de.vapecloud.driver.container.enums.ContainerVersion;
 import de.vapecloud.driver.process.bin.ProcessCore;
 import de.vapecloud.driver.process.interfaces.IProcess;
@@ -17,6 +20,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -40,9 +44,16 @@ public class RunningProcess implements IProcess {
     @Override
     public void runProcess() {
         if(!new File("./local/templates/"+this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0] + "/").exists()){
-            new File("./local/templates/"+this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0] + "/plugins").mkdirs();
-            new Downloader("server.jar", "./local/templates/"+this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0], ContainerVersion.valueOf(this.getProcessCore().getProcessVersion()));
-            Thread.sleep(500);
+            if (this.getProcessCore().isStaticProcess()){
+                System.out.println("ttt");
+                new File("./local/templates/"+this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0] + "/defaults/plugins").mkdirs();
+                new Downloader("server.jar", "./local/templates/"+this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0]+ "/defaults/", ContainerVersion.valueOf(this.getProcessCore().getProcessVersion()));
+                Thread.sleep(500);
+            }else {
+                new File("./local/templates/"+this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0] + "/plugins").mkdirs();
+                new Downloader("server.jar", "./local/templates/"+this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0], ContainerVersion.valueOf(this.getProcessCore().getProcessVersion()));
+                Thread.sleep(500);
+            }
         }
         //create live-folder
         new File("." + this.getProcessCore().getRunningPath()+ "plugins/").mkdirs();
@@ -50,10 +61,25 @@ public class RunningProcess implements IProcess {
         if(!this.getProcessCore().isStaticProcess()){
             FileUtils.copyDirectory(new File("./local/templates/"+this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0] + "/"), new File("." + this.getProcessCore().getRunningPath()));
         }else{
-            if (!new File("."+ this.getProcessCore().getRunningPath()).exists()){
-                FileUtils.copyDirectory(new File("./local/templates/"+this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0] + "/"), new File("." + this.getProcessCore().getRunningPath()));
+            if (new File("./local/templates/" + this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0]+ "/" + this.getProcessCore().getProcessName()+"/").exists()){
+                FileUtils.copyDirectory(new File("./local/templates/" + this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0]+ "/" + this.getProcessCore().getProcessName() + "/"), new File("." + this.getProcessCore().getRunningPath()));
+            }else {
+                FileUtils.copyDirectory(new File("./local/templates/" + this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0]+ "/defaults/"), new File("." + this.getProcessCore().getRunningPath()));
             }
+
         }
+        new File("."+ this.getProcessCore().getRunningPath()+ "/cloud/").mkdirs();
+        SettingsConfig settingsConfig = (SettingsConfig)new ConfigHandler("./settings.json").getConfig(SettingsConfig.class);
+
+        ProcessConfig config = new ProcessConfig();
+        config.setMessages(new HashMap<>());
+        config.setRunningCluster(processCore.getRunningCluster());
+        config.setProcessName(processCore.getProcessName());
+        config.setProcessMode(processCore.getProcessModeType());
+        config.setProcessStartPort(processCore.getProvideStartPort());
+        config.setPort(settingsConfig.getInternalPort());
+        config.setManagerAddress(settingsConfig.getManagerAddresse());
+        new ConfigHandler("."+ this.getProcessCore().getRunningPath()+ "/cloud/config.json").saveConfig(config);
         FileUtils.copyDirectory(new File("./local/GLOBAL/"), new File("." + this.getProcessCore().getRunningPath()));
         VapeDriver.getInstance().getModuleHandler().getModuleDataCache().forEach((module, type) -> {
             if (type.equalsIgnoreCase("BOTH")){
@@ -110,9 +136,34 @@ public class RunningProcess implements IProcess {
         }
     }
 
+    @SneakyThrows
     @Override
     public void stopProcess() {
-        process.destroy();
+       if (process.isAlive()){
+           process.destroy();
+       }
+       Thread.sleep(600);
+       if (!getProcessCore().isStaticProcess()){
+            FileUtils.deleteDirectory(new File("." + this.getProcessCore().getRunningPath()));
+           File file = new File("./live/"+  this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0]+ "/");
+           if (file.list().length == 0) {
+               file.delete();
+           }
+       }  else{
+           new File("./local/templates/" + this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0]+ "/" + this.getProcessCore().getProcessName()+"/").delete();
+           new File("./local/templates/" + this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0]+ "/" + this.getProcessCore().getProcessName()+"/").mkdirs();
+           FileUtils.copyDirectory(new File("." + this.getProcessCore().getRunningPath()), new File("./local/templates/" + this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0]+ "/" + this.getProcessCore().getProcessName()+"/"));
+           Thread.sleep(200);
+           FileUtils.deleteDirectory(new File("." + this.getProcessCore().getRunningPath()));
+           File file = new File("./live/"+  this.getProcessCore().getProcessName().split(this.getProcessCore().getSplitter())[0]+ "/");
+           if (file.list().length == 0) {
+               file.delete();
+           }
+       }
+        File file = new File("./live/");
+        if (file.list().length == 0) {
+            file.delete();
+        }
     }
 
 

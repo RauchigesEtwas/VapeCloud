@@ -6,11 +6,11 @@ package de.vapecloud.vapenet;
  * Created by Robin B. (RauchigesEtwas)
  */
 
-import de.vapecloud.vapenet.handlers.PacketManager;
+import de.vapecloud.vapenet.handlers.PacketListenerHandler;
 
 public class VapeNetBootStrap {
 
-    public static PacketManager packetManager;
+    public static PacketListenerHandler packetListenerHandler;
     public static VapeNETServer server;
     public static VapeNETClient client;
 

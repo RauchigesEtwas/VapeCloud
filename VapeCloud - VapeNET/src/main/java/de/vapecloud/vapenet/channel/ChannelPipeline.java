@@ -7,7 +7,7 @@ package de.vapecloud.vapenet.channel;
  */
 
 import de.vapecloud.vapenet.VapeNetBootStrap;
-import de.vapecloud.vapenet.handlers.PacketListener;
+import de.vapecloud.vapenet.handlers.bin.PacketListener;
 import de.vapecloud.vapenet.protocol.codec.IPacketDecoder;
 import de.vapecloud.vapenet.protocol.codec.IPacketEncoder;
 
@@ -32,7 +32,7 @@ public class ChannelPipeline {
 
 
     public void addLast(PacketListener packetListener){
-        VapeNetBootStrap.packetManager.addPacketHandler(packetListener);
+        VapeNetBootStrap.packetListenerHandler.registerListener(packetListener);
     }
 
     public IPacketEncoder getEncoder() {

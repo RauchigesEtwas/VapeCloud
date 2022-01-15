@@ -11,10 +11,10 @@ import de.vapecloud.driver.configuration.ConfigHandler;
 import de.vapecloud.driver.configuration.configs.SettingsConfig;
 import de.vapecloud.driver.console.logger.enums.MessageType;
 import de.vapecloud.driver.networking.client.Client;
-import de.vapecloud.driver.networking.packets.cluster.from.AuthClusterPacket;
-import de.vapecloud.driver.process.RunningProcess;
+import de.vapecloud.driver.networking.packets.cluster.out.AuthClusterPacket;
 import de.vapecloud.launcher.cluster.network.AuthAwnserHandler;
 import de.vapecloud.launcher.cluster.network.ClusterOrderAwnserHandler;
+import de.vapecloud.launcher.cluster.network.ShutdownAllPacketHandler;
 import de.vapecloud.vapenet.VapeNetBootStrap;
 
 public class VapeCluster {
@@ -26,6 +26,7 @@ public class VapeCluster {
 
 
         VapeDriver.getInstance().getVapeSettings().setRunningaCluster(true);
+        VapeDriver.getInstance().getProcessHandler().addConnectedCluster(settingsConfig.getRunningInstance());
 
         VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, false, "Try to connect with the manager [Address: §e"+settingsConfig.getManagerAddresse()+"§7 / Port: §e"+settingsConfig.getInternalPort()+"§7]");
         registerNetworking(settingsConfig);
@@ -45,17 +46,19 @@ public class VapeCluster {
         new VapeNetBootStrap();
         VapeDriver.getInstance().getNetworkHandler().client = new Client();
         VapeDriver.getInstance().getNetworkHandler().client.bind(settingsConfig.getManagerAddresse(), settingsConfig.getInternalPort()).create();
-        VapeNetBootStrap.packetManager
-                .addPacketHandler(new AuthAwnserHandler())
-                .addPacketHandler(new ClusterOrderAwnserHandler());
+        VapeNetBootStrap.packetListenerHandler.registerListener(new AuthAwnserHandler());
+        VapeNetBootStrap.packetListenerHandler.registerListener(new ClusterOrderAwnserHandler());
+        VapeNetBootStrap.packetListenerHandler.registerListener(new ShutdownAllPacketHandler());
     }
 
 
     private void shutdownHook(){
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            if (!VapeDriver.getInstance().getVapeSettings().isClosedByManager()){
-            }
-            VapeNetBootStrap.client.close();
+            VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, false, "the cloud is now §eshutting down");
+            VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, false, "thank you for use §eVapeCloud");
+            SettingsConfig settingsConfig = (SettingsConfig) new ConfigHandler("./settings.json").getConfig(SettingsConfig.class);
+
+            VapeDriver.getInstance().getProcessHandler().getProcessFromCluster(settingsConfig.getRunningInstance()).forEach((process, aBoolean) -> VapeDriver.getInstance().getProcessHandler().getProcess(process).stopProcess());
         }));
     }
 }

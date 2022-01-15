@@ -2,10 +2,13 @@ package de.vapecloud.driver;
 
 
 import de.vapecloud.driver.console.ConsolHandler;
+import de.vapecloud.driver.events.EventExecutor;
+import de.vapecloud.driver.events.EventHandler;
 import de.vapecloud.driver.modules.ModuleHandler;
 import de.vapecloud.driver.networking.NetworkHandler;
 import de.vapecloud.driver.process.ProcessHandler;
 import de.vapecloud.driver.utils.VapeSettings;
+
 
 
 /*
@@ -23,6 +26,7 @@ public class VapeDriver {
     private NetworkHandler networkHandler;
     private ModuleHandler moduleHandler;
     private ProcessHandler processHandler;
+    private EventExecutor eventExecutor;
 
     public VapeDriver() {
         this.instance = this;
@@ -30,6 +34,7 @@ public class VapeDriver {
         this.vapeSettings = new VapeSettings();
         this.moduleHandler = new ModuleHandler();
         this.processHandler = new ProcessHandler();
+        this.eventExecutor = new EventExecutor();
     }
 
     public ProcessHandler getProcessHandler() {

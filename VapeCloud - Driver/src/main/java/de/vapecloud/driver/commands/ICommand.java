@@ -1,4 +1,4 @@
-package de.vapecloud.driver.commandsystem;
+package de.vapecloud.driver.commands;
 
 /*
  * Projectname: VapeCloud

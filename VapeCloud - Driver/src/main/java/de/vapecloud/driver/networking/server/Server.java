@@ -9,7 +9,7 @@ package de.vapecloud.driver.networking.server;
 import de.vapecloud.vapenet.VapeNETServer;
 import de.vapecloud.vapenet.channel.ChannelPipeline;
 import de.vapecloud.vapenet.VapeNetBootStrap;
-import de.vapecloud.vapenet.handlers.PacketManager;
+import de.vapecloud.vapenet.handlers.PacketListenerHandler;
 
 public class Server {
 
@@ -28,7 +28,7 @@ public class Server {
 
     public void create(){
         try {
-            VapeNetBootStrap.packetManager = new PacketManager();
+            VapeNetBootStrap.packetListenerHandler = new PacketListenerHandler();
             VapeNetBootStrap.server = new VapeNETServer();
             VapeNetBootStrap.server.init(channel -> {
                 ChannelPipeline pipeline = channel.getPipeline();

@@ -9,12 +9,10 @@ package de.vapecloud.vapenet;
 import de.vapecloud.vapenet.channel.IChannel;
 import de.vapecloud.vapenet.channel.IChannelInitializer;
 import de.vapecloud.vapenet.channel.VapeNETChannel;
-import de.vapecloud.vapenet.handlers.PacketManager;
 import de.vapecloud.vapenet.protocol.Packet;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 
 public class VapeNETClient implements IVapeNETStructure{
 

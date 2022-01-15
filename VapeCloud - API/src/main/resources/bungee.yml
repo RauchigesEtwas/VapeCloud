@@ -1,0 +1,4 @@
+main: de.vapecloud.api.bungeecord.BungeeAPILaunch
+name: VapeCloud-BUNGEE-API
+version: 1.0.0
+author: RauchigesEtwas

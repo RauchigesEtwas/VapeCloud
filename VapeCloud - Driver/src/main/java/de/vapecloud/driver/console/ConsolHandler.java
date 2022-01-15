@@ -1,8 +1,8 @@
 package de.vapecloud.driver.console;
 
 import de.vapecloud.driver.VapeDriver;
-import de.vapecloud.driver.commandsystem.ICommandHandler;
-import de.vapecloud.driver.commandsystem.ICommandSender;
+import de.vapecloud.driver.commands.ICommandHandler;
+import de.vapecloud.driver.commands.ICommandSender;
 import de.vapecloud.driver.console.logger.Logger;
 import de.vapecloud.driver.console.logger.enums.MessageType;
 import de.vapecloud.driver.console.setup.MainContainerSetup;

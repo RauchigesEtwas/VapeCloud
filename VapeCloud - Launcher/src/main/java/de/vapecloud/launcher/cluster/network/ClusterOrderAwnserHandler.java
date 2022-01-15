@@ -7,25 +7,27 @@ package de.vapecloud.launcher.cluster.network;
  */
 
 import de.vapecloud.driver.VapeDriver;
-import de.vapecloud.driver.configuration.ConfigHandler;
-import de.vapecloud.driver.configuration.configs.SettingsConfig;
 import de.vapecloud.driver.console.logger.enums.MessageType;
-import de.vapecloud.driver.networking.packets.cluster.from.ConfirmOrderPacket;
-import de.vapecloud.driver.networking.packets.cluster.to.ClusterOrderQueuePacket;
-import de.vapecloud.driver.process.RunningProcess;
+import de.vapecloud.driver.networking.packets.cluster.out.ConfirmOrderPacket;
+import de.vapecloud.driver.networking.packets.cluster.in.ClusterOrderQueuePacket;
 import de.vapecloud.driver.process.bin.ProcessCore;
-import de.vapecloud.vapenet.channel.IChannel;
-import de.vapecloud.vapenet.handlers.PacketListener;
+import de.vapecloud.vapenet.channel.VapeNETChannel;
+import de.vapecloud.vapenet.handlers.bin.PacketListener;
+import de.vapecloud.vapenet.handlers.bin.PacketProvideHandler;
+import de.vapecloud.vapenet.handlers.listener.PacketReceivedEvent;
 import de.vapecloud.vapenet.protocol.Packet;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.function.Consumer;
 
 public class ClusterOrderAwnserHandler extends PacketListener {
 
-    @Override
-    public void handlePacket(IChannel channel, Packet packet) {
+    @PacketProvideHandler(priority = 100)
+    public void handleOrder(PacketReceivedEvent event){
+
+        Packet packet = event.getPacket();
+        VapeNETChannel channel = event.getChannel();
+
         if (packet instanceof ClusterOrderQueuePacket){
             ClusterOrderQueuePacket queuePacket = (ClusterOrderQueuePacket) packet;
             if (!queuePacket.getSubmitToQueue()){
@@ -55,7 +57,7 @@ public class ClusterOrderAwnserHandler extends PacketListener {
                     } catch (UnknownHostException e) {
 
                     }
-
+                    VapeDriver.getInstance().getProcessHandler().addProcessToCluster(core.getRunningCluster(), order.getProcessName());
                     VapeDriver.getInstance().getProcessHandler().addProcess(order.getProcessName().split(order.getSplitter())[0], core);
                     VapeDriver.getInstance().getProcessHandler().getProcess(order.getProcessName()).runProcess();
                     ConfirmOrderPacket confirmOrderPacket = new ConfirmOrderPacket();
@@ -69,4 +71,6 @@ public class ClusterOrderAwnserHandler extends PacketListener {
             }
         }
     }
+
+
 }

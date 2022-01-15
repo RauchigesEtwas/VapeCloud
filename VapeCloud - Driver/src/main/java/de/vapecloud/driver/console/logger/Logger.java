@@ -63,6 +63,12 @@ public class Logger {
             case DEBUG:
                 printLine(usecommand,"DEBUG", message,null);
                 break;
+            case NETWORKERROR:
+                printLine(usecommand,"§cNETWORK", message, null);
+                break;
+            case SUCCESS:
+                printLine(usecommand,"§aSUCCESS", message, null);
+                break;
         }
     }
 

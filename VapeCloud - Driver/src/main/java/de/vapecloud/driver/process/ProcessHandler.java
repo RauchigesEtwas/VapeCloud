@@ -6,9 +6,12 @@ package de.vapecloud.driver.process;
  * Created by Robin B. (RauchigesEtwas)
  */
 
+import de.vapecloud.driver.configuration.ConfigHandler;
+import de.vapecloud.driver.configuration.configs.ServiceConfig;
 import de.vapecloud.driver.container.ContainerHandler;
 import de.vapecloud.driver.container.containers.SubContainer;
 import de.vapecloud.driver.process.bin.ProcessCore;
+import de.vapecloud.driver.process.bin.ServerData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +20,7 @@ public class ProcessHandler {
 
     private HashMap<String, HashMap<String,Boolean>> runningProcessByCluster;
     private ArrayList< Integer> blockedPortsFromCluster;
+    private ArrayList<ServerData> connectedServers;
     private HashMap<String, ArrayList<Integer>>  blockedID;
     private HashMap<String, ArrayList<RunningProcess>> processesByGroup;
 
@@ -24,8 +28,16 @@ public class ProcessHandler {
         this.runningProcessByCluster = new HashMap<>();
         this.blockedPortsFromCluster = new ArrayList<>();
         this.processesByGroup = new HashMap<>();
+        this.connectedServers = new ArrayList<>();
         this.blockedID = new HashMap<>();
+    }
 
+    public ArrayList<ServerData> getConnectedServers() {
+        return connectedServers;
+    }
+
+    public void setConnectedServers(ArrayList<ServerData> connectedServers) {
+        this.connectedServers = connectedServers;
     }
 
     public void removeID(String container, Integer id){
@@ -246,12 +258,10 @@ public class ProcessHandler {
 
     public void changeConnectionStatusFromProcess(String process){
         if(this.runningProcessByCluster != null){
-            this.runningProcessByCluster.forEach((s, stringBooleanHashMap) -> {
-                if (stringBooleanHashMap.containsKey(process) && stringBooleanHashMap.get(process) != true){
-                    stringBooleanHashMap.remove(process);
-                    stringBooleanHashMap.put(process, true);
-                }
-            });
+            ServiceConfig serviceConfig = (ServiceConfig)new ConfigHandler("./service.json").getConfig(ServiceConfig.class);
+
+            runningProcessByCluster.get(new ContainerHandler().getSubContainers(process.split(serviceConfig.getInternalSplitter())[0]).getRunningCluster()).remove(process);
+            runningProcessByCluster.get(new ContainerHandler().getSubContainers(process.split(serviceConfig.getInternalSplitter())[0]).getRunningCluster()).put(process, true);
         }else {
             this.runningProcessByCluster = new HashMap<>();
         }
@@ -259,12 +269,8 @@ public class ProcessHandler {
 
     public boolean getConnectedStatus(String process){
         if(this.runningProcessByCluster != null){
-            for (String cluster : runningProcessByCluster.keySet()){
-                if (runningProcessByCluster.get(cluster).containsKey(process)){
-                    return this.runningProcessByCluster.get(cluster).get(process);
-                }
-            }
-            return false;
+            ServiceConfig serviceConfig = (ServiceConfig)new ConfigHandler("./service.json").getConfig(ServiceConfig.class);
+            return runningProcessByCluster.get(new ContainerHandler().getSubContainers(process.split(serviceConfig.getInternalSplitter())[0]).getRunningCluster()).get(process);
         }else {
             return false;
         }

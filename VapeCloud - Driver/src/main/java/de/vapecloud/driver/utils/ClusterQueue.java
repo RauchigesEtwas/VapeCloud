@@ -6,8 +6,7 @@ package de.vapecloud.driver.utils;
  * Created by Robin B. (RauchigesEtwas)
  */
 
-import de.vapecloud.driver.networking.packets.cluster.to.ClusterOrderQueuePacket;
-import de.vapecloud.vapenet.protocol.Packet;
+import de.vapecloud.driver.networking.packets.cluster.in.ClusterOrderQueuePacket;
 
 import java.util.ArrayList;
 

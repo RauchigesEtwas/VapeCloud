@@ -1,0 +1,4 @@
+main: de.vapecloud.api.spigot.SpigotAPILaunch
+name: VapeCloud-SPIGOT-API
+version: 1.0.0
+author: RauchigesEtwas

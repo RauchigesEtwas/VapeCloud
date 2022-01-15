@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="VapeCloud - API" />
         <module name="VapeCloud - Launcher" />
+        <module name="vapecloud-launcher" />
         <module name="VapeCloud-Driver" />
         <module name="VapeCloud-API" />
         <module name="VapeCloud-VapeNET" />
@@ -16,11 +17,5 @@
         <module name="VapeCloud-ProxyModule" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Launcher" target="1.8" />
-      <module name="VapeCloud - VapeNet" target="8" />
-      <module name="VapeCloud - VapeNET" target="8" />
-      <module name="VapeCloud-Launcher" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

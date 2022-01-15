@@ -7,8 +7,8 @@ package de.vapecloud.launcher.manager.commands;
  */
 
 import de.vapecloud.driver.VapeDriver;
-import de.vapecloud.driver.commandsystem.ICommand;
-import de.vapecloud.driver.commandsystem.ICommandSender;
+import de.vapecloud.driver.commands.ICommand;
+import de.vapecloud.driver.commands.ICommandSender;
 import de.vapecloud.driver.console.logger.enums.MessageType;
 
 public class ProcessCommand extends ICommand {

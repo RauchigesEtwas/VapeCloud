@@ -7,10 +7,9 @@ package de.vapecloud.driver.networking.client;
  */
 
 import de.vapecloud.vapenet.VapeNETClient;
-import de.vapecloud.vapenet.VapeNETOption;
 import de.vapecloud.vapenet.channel.ChannelPipeline;
 import de.vapecloud.vapenet.VapeNetBootStrap;
-import de.vapecloud.vapenet.handlers.PacketManager;
+import de.vapecloud.vapenet.handlers.PacketListenerHandler;
 
 
 public class Client {
@@ -29,11 +28,10 @@ public class Client {
 
     public void create(){
         try {
-            VapeNetBootStrap.packetManager = new PacketManager();
+            VapeNetBootStrap.packetListenerHandler = new PacketListenerHandler();
             VapeNetBootStrap.client = new VapeNETClient();
             VapeNetBootStrap.client.init(channel -> {
                 ChannelPipeline pipeline = channel.getPipeline();
-                pipeline.addLast(new LostConnectionHandler());
 
             }).bind(this.host, this.port).connect();
         }catch (Exception e){

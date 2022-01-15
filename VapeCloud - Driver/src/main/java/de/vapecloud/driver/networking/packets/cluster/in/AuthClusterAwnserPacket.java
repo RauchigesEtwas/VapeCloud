@@ -1,4 +1,4 @@
-package de.vapecloud.driver.networking.packets.cluster.to;
+package de.vapecloud.driver.networking.packets.cluster.in;
 
 /*
  * Projectname: VapeCloud

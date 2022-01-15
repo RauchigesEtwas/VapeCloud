@@ -10,6 +10,8 @@ import de.vapecloud.vapenet.channel.ChannelPipeline;
 import de.vapecloud.vapenet.channel.IChannel;
 import de.vapecloud.vapenet.channel.IChannelInitializer;
 import de.vapecloud.vapenet.channel.VapeNETChannel;
+import de.vapecloud.vapenet.handlers.listener.ClientConnectEvent;
+import de.vapecloud.vapenet.handlers.listener.NetworkExceptionEvent;
 import de.vapecloud.vapenet.protocol.Packet;
 
 import java.io.IOException;
@@ -65,15 +67,10 @@ public class VapeNETWorker implements Runnable, IVapeNETStructure{
                 channels.add(channel);
                 if (initializer != null) initializer.initChannel(channel);
 
-                VapeNetBootStrap.packetManager.getAllListeners().forEach(packetHandler -> {
-                    packetHandler.handleConnected(channel);
-                });
+                VapeNetBootStrap.packetListenerHandler.executeEvent(new ClientConnectEvent(channel));
                 channel.start();
             } catch (IOException e) {
-
-                VapeNetBootStrap.packetManager.getAllListeners().forEach(packetHandler -> {
-                    packetHandler.handleException(e);
-                });
+                VapeNetBootStrap.packetListenerHandler.executeEvent(new NetworkExceptionEvent(e));
                 close();
             }
         }
@@ -86,9 +83,7 @@ public class VapeNETWorker implements Runnable, IVapeNETStructure{
             for (int i = channels.size() - 1; i >= 0; i--) channels.get(i).close();
             socket.close();
         } catch (IOException e) {
-            VapeNetBootStrap.packetManager.getAllListeners().forEach(packetHandler -> {
-                packetHandler.handleException(e);
-            });
+            VapeNetBootStrap.packetListenerHandler.executeEvent(new NetworkExceptionEvent(e));
         }
     }
 

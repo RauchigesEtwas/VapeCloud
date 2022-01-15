@@ -7,7 +7,6 @@ package de.vapecloud.vapenet;
  */
 import de.vapecloud.vapenet.channel.IChannel;
 import de.vapecloud.vapenet.channel.IChannelInitializer;
-import de.vapecloud.vapenet.handlers.PacketManager;
 import de.vapecloud.vapenet.protocol.Packet;
 import lombok.SneakyThrows;
 
@@ -15,25 +14,19 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
-import java.nio.channels.AsynchronousServerSocketChannel;
 import java.util.List;
 
 public class VapeNETServer implements IVapeNETStructure {
 
 
     private final VapeNETWorker worker;
-    private PacketManager packetManager;
 
 
     @SneakyThrows
     public VapeNETServer() {
         this.worker = new VapeNETWorker();
-        this.packetManager = new PacketManager();
     }
 
-    public PacketManager getPacketManager() {
-        return packetManager;
-    }
 
     public VapeNETWorker getWorker() {
         return worker;
