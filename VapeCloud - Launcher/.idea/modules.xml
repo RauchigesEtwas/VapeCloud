@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/VapeCloud - Launcher.iml" filepath="$PROJECT_DIR$/VapeCloud - Launcher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../VapeCloud - VapeNET/VapeCloud-Networking.iml" filepath="$PROJECT_DIR$/../VapeCloud - VapeNET/VapeCloud-Networking.iml" />
     </modules>
   </component>
 </project>

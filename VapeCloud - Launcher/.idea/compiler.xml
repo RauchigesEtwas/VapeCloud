@@ -6,16 +6,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="VapeCloud - PluginBridge" />
         <module name="VapeCloud - API" />
         <module name="VapeCloud - Launcher" />
         <module name="vapecloud-launcher" />
         <module name="VapeCloud-Driver" />
         <module name="VapeCloud-API" />
-        <module name="VapeCloud-VapeNET" />
+        <module name="VapeCloud-Networking" />
         <module name="VapeCloud - Driver" />
         <module name="VapeCloud - ProxyModule" />
         <module name="VapeCloud-ProxyModule" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="VapeCloud - Launcher" target="1.8" />
+      <module name="VapeCloud-Networking" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

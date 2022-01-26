@@ -9,36 +9,78 @@ package de.vapecloud.driver.networking.packets.cloudprocess.in;
 import de.vapecloud.vapenet.protocol.IPacketBuffer;
 import de.vapecloud.vapenet.protocol.Packet;
 
+import java.util.HashMap;
+
 public class ProcessUpdatePacket extends Packet {
 
-    private String updateType;
-    private String updateText;
+    private String managerAddress;
+    private Integer port, processStartPort;
+    private String processName;
+    private String runningCluster;
+    private String processMode;
+    private HashMap<String, String> messages;
 
     @Override
     public void write(IPacketBuffer buffer) {
-        buffer.write("type", this.updateType);
-        buffer.write("text", this.updateText);
     }
 
-    @Override
-    public void read(IPacketBuffer buffer) {
-        this.updateType = buffer.read("type", String.class);
-        this.updateText = buffer.read("text", String.class);
+   @Override
+   public void read(IPacketBuffer buffer) {
     }
 
-    public String getUpdateType() {
-        return updateType;
+    public String getManagerAddress() {
+        return managerAddress;
     }
 
-    public void setUpdateType(String updateType) {
-        this.updateType = updateType;
+    public void setManagerAddress(String managerAddress) {
+        this.managerAddress = managerAddress;
     }
 
-    public String getUpdateText() {
-        return updateText;
+    public Integer getPort() {
+        return port;
     }
 
-    public void setUpdateText(String updateText) {
-        this.updateText = updateText;
+    public void setPort(Integer port) {
+        this.port = port;
+    }
+
+    public Integer getProcessStartPort() {
+        return processStartPort;
+    }
+
+    public void setProcessStartPort(Integer processStartPort) {
+        this.processStartPort = processStartPort;
+    }
+
+    public String getProcessName() {
+        return processName;
+    }
+
+    public void setProcessName(String processName) {
+        this.processName = processName;
+    }
+
+    public String getRunningCluster() {
+        return runningCluster;
+    }
+
+    public void setRunningCluster(String runningCluster) {
+        this.runningCluster = runningCluster;
+    }
+
+    public String getProcessMode() {
+        return processMode;
+    }
+
+    public void setProcessMode(String processMode) {
+        this.processMode = processMode;
+    }
+
+    public HashMap<String, String> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(HashMap<String, String> messages) {
+        this.messages = messages;
     }
 }

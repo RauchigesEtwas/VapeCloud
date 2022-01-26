@@ -45,8 +45,6 @@ public class ProcessConnectedListener extends PacketListener {
                 VapeDriver.getInstance().getNetworkHandler().getConnectionHandler().registerChannel(packet.getProcessName(), event.getChannel());
 
                 ProcessUpdatePacket updatePacket = new ProcessUpdatePacket();
-                updatePacket.setJsonText(new ConfigHandler("").convertToJson(new ConfigHandler("./service.json").getConfig(ServiceConfig.class)));
-                updatePacket.setFileName("serviceconfig");
                 channel.sendPacket(updatePacket);
 
                 if (packet.getProcessType().equalsIgnoreCase("PROXY")){
