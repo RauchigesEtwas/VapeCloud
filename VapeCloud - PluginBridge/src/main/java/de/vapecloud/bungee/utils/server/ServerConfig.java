@@ -1,6 +1,6 @@
-package de.vapecloud.api.bungeecord.utils.serverhelper;
+package de.vapecloud.bungee.utils.server;
 
-import de.vapecloud.api.bungeecord.BungeeAPILaunch;
+import de.vapecloud.bungee.BungeeBridge;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
@@ -9,7 +9,8 @@ import net.md_5.bungee.config.YamlConfiguration;
 import java.io.*;
 import java.util.concurrent.TimeUnit;
 
-public class ConfigHelper {
+
+public class ServerConfig {
 
     private static File file;
     private static Configuration bungeeConfig;
@@ -18,7 +19,7 @@ public class ConfigHelper {
     static {
         setupConfig();
         if (locked) {
-            ProxyServer.getInstance().getScheduler().schedule(BungeeAPILaunch.getInstance(), () -> setupConfig(), 5L, TimeUnit.SECONDS);
+            ProxyServer.getInstance().getScheduler().schedule(BungeeBridge.getInstance(), () -> setupConfig(), 5L, TimeUnit.SECONDS);
         }
     }
 
@@ -84,5 +85,4 @@ public class ConfigHelper {
 
         locked = bungeeConfig == null;
     }
-
 }

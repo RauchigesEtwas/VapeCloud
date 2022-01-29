@@ -17,6 +17,7 @@ import de.vapecloud.driver.container.containers.SubContainer;
 import de.vapecloud.driver.networking.packets.cluster.in.ShutdownAllPacket;
 import de.vapecloud.driver.networking.server.Server;
 import de.vapecloud.driver.process.bin.ProcessCore;
+import de.vapecloud.driver.restapi.RestAPIServer;
 import de.vapecloud.launcher.manager.commands.*;
 import de.vapecloud.launcher.manager.network.cluster.ClusterAskForOrdersHandler;
 import de.vapecloud.launcher.manager.network.cluster.ClusterAuthHandler;
@@ -35,6 +36,8 @@ public class VapeManager {
         registerNetworking(settingsConfig);
 
 
+
+
         ContainerHandler containerHandler = new ContainerHandler();
         StringBuilder aliases = new StringBuilder();
         for (int i = 0; i !=   containerHandler.getSubContainersNames().size(); i++){
@@ -44,13 +47,15 @@ public class VapeManager {
                 aliases.append("§7, §e").append(containerHandler.getSubContainersNames().get(i));
             }
         }
-        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.MODULE, false, "All §econtainers§7 were found and §aloadeds§7 [" + aliases + "§7]");
-
+        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, false, "All §econtainers§7 were found and §aloadeds§7 [" + aliases + "§7]");
+        VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.INFORMATION, false, "the restapi is §eprepared §7& §ebind §7to connect on §e9087");
+        new RestAPIServer().bind(9087).create();
         //LOAD MODULES
         VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.MODULE, false, "the modules are §eprepared §7and can be §eload");
         VapeDriver.getInstance().getModuleHandler().loadModules();
         VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.MODULE, false, "all modules were found and were §aloaded §7[§e"+  VapeDriver.getInstance().getModuleHandler().getLoadedModules().size() + " Module§7]");
         registerCommands();
+
 
         long time =       VapeDriver.getInstance().getVapeSettings().getStartCount();
         long finalTime =  (System.currentTimeMillis() - time);
@@ -62,12 +67,14 @@ public class VapeManager {
         VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.NETWORK, false, "a new §eCluster §7was §aregistered §7[§eInternalCluster§7~§e127.0.0.1§7@§e"+settingsConfig.getInternalPort()+"§7]");
         shutdownHook();
 
+
         for (int i = 0; i != containerHandler.getSubContainersFromCluster("InternalCluster").size(); i++) {
             for (int is = 0; is !=   containerHandler.getSubContainersFromCluster("InternalCluster").get(i).getTotalOnline(); is++){
                 runInternalProcess(containerHandler.getSubContainersFromCluster("InternalCluster").get(i), serviceConfig);
             }
         }
-        while (true){}
+        while (true){
+        }
 
     }
 

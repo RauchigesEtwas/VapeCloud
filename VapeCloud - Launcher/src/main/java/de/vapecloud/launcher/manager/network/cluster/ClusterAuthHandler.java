@@ -23,7 +23,7 @@ public class ClusterAuthHandler extends PacketListener {
 
     @PacketProvideHandler(priority = 100)
     public void handleAuth(PacketReceivedEvent event){
-        
+
         Packet packet = event.getPacket();
         VapeNETChannel channel = event.getChannel();
 

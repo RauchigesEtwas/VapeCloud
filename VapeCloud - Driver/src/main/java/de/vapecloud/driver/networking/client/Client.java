@@ -7,6 +7,7 @@ package de.vapecloud.driver.networking.client;
  */
 
 import de.vapecloud.vapenet.VapeNETClient;
+import de.vapecloud.vapenet.VapeNETOption;
 import de.vapecloud.vapenet.channel.ChannelPipeline;
 import de.vapecloud.vapenet.VapeNetBootStrap;
 import de.vapecloud.vapenet.handlers.PacketListenerHandler;
@@ -33,7 +34,7 @@ public class Client {
             VapeNetBootStrap.client.init(channel -> {
                 ChannelPipeline pipeline = channel.getPipeline();
 
-            }).bind(this.host, this.port).connect();
+            }).option(VapeNETOption.BUFFER_SIZE, 2024).bind(this.host, this.port).connect();
         }catch (Exception e){
 
         }

@@ -1,0 +1,5 @@
+main: de.vapecloud.bukkit.BukkitBridge
+name: vapecloud-plugin-bukkitbridge
+author: RauchigesEtwas
+version: 1.0.0
+commands:

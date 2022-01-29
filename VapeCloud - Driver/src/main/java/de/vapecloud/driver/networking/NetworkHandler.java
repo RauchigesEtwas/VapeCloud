@@ -8,6 +8,7 @@ package de.vapecloud.driver.networking;
 
 import de.vapecloud.driver.networking.client.Client;
 import de.vapecloud.driver.networking.server.Server;
+import de.vapecloud.vapenet.VapeNetBootStrap;
 
 public class NetworkHandler {
 

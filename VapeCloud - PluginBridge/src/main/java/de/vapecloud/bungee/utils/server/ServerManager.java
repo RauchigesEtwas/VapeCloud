@@ -1,12 +1,12 @@
-package de.vapecloud.api.bungeecord.utils.serverhelper;
+package de.vapecloud.bungee.utils.server;
+
 
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.util.Map;
 
-public class ServerHelper {
+public class ServerManager {
 
     public static boolean serverExists(String name) {
         return getServerInfo(name) != null;
@@ -22,7 +22,7 @@ public class ServerHelper {
         }
 
         getServers().put(serverInfo.getName(), serverInfo);
-        ConfigHelper.addToConfig(serverInfo);
+        ServerConfig.addToConfig(serverInfo);
     }
 
     public static void removeServer(String name) {
@@ -31,7 +31,7 @@ public class ServerHelper {
         }
 
         getServers().remove(name);
-        ConfigHelper.removeFromConfig(name);
+        ServerConfig.removeFromConfig(name);
     }
 
     public static Map<String, ServerInfo> getServers() {

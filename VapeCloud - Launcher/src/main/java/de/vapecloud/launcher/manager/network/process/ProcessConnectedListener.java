@@ -11,72 +11,64 @@ import de.vapecloud.driver.configuration.ConfigHandler;
 import de.vapecloud.driver.configuration.configs.ServiceConfig;
 import de.vapecloud.driver.console.logger.enums.MessageType;
 import de.vapecloud.driver.container.ContainerHandler;
-import de.vapecloud.driver.networking.packets.cloudprocess.in.ProcessBindeToBungeePacket;
-import de.vapecloud.driver.networking.packets.cloudprocess.in.ProcessUpdatePacket;
-import de.vapecloud.driver.networking.packets.cloudprocess.out.CloudProcessConnecedPacket;
+import de.vapecloud.driver.networking.packets.cloudprocess.in.CloudProcessUpdateInPacket;
+import de.vapecloud.driver.networking.packets.cloudprocess.out.CloudProcessIsReadyOutPacket;
 import de.vapecloud.driver.process.bin.ServerData;
-import de.vapecloud.vapenet.VapeNetBootStrap;
-import de.vapecloud.vapenet.channel.IChannel;
 import de.vapecloud.vapenet.channel.VapeNETChannel;
 import de.vapecloud.vapenet.handlers.bin.PacketListener;
 import de.vapecloud.vapenet.handlers.bin.PacketProvideHandler;
 import de.vapecloud.vapenet.handlers.listener.PacketReceivedEvent;
 import de.vapecloud.vapenet.protocol.Packet;
-
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class ProcessConnectedListener extends PacketListener {
 
-    @PacketProvideHandler(priority = 100)
-    public void handleProcessConnection(PacketReceivedEvent event){
-        Packet packet2 = event.getPacket();
+    @PacketProvideHandler
+    public void handleEvent(PacketReceivedEvent event){
+        Packet packet = event.getPacket();
         VapeNETChannel channel = event.getChannel();
-        if (packet2 instanceof CloudProcessConnecedPacket){
-            CloudProcessConnecedPacket packet = (CloudProcessConnecedPacket) event.getPacket();
-
-
-            if (VapeDriver.getInstance().getProcessHandler().getConnectedStatus(packet.getProcessName())){
-                 return;
+        if (packet instanceof CloudProcessIsReadyOutPacket){
+            CloudProcessIsReadyOutPacket process = (CloudProcessIsReadyOutPacket) packet;
+            if (VapeDriver.getInstance().getProcessHandler().getConnectedStatus(process.getProcessName())){
+                return;
             }else {
-                VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.NETWORK, false, "The process §e"+packet.getProcessName()+"§7 is now §aconnected §7[§e"+packet.getProcessType()+"§7~§e"+packet.getPort()+"§7]");
+                VapeDriver.getInstance().getConsolHandler().getLogger().sendMessage(MessageType.NETWORK, false, "The process §e"+process.getProcessName()+"§7 is now §aconnected §7[§e"+process.getProcessType()+"§7~§e"+process.getProcessPort()+"§7]");
 
-                VapeDriver.getInstance().getProcessHandler().changeConnectionStatusFromProcess(packet.getProcessName());
-                VapeDriver.getInstance().getNetworkHandler().getConnectionHandler().registerChannel(packet.getProcessName(), event.getChannel());
-
-                ProcessUpdatePacket updatePacket = new ProcessUpdatePacket();
-                channel.sendPacket(updatePacket);
-
-                if (packet.getProcessType().equalsIgnoreCase("PROXY")){
+                VapeDriver.getInstance().getProcessHandler().changeConnectionStatusFromProcess(process.getProcessName());
+                VapeDriver.getInstance().getNetworkHandler().getConnectionHandler().registerChannel(process.getProcessName(), event.getChannel());
+                if (process.getProcessType().equalsIgnoreCase("PROXY")){
+                    Map<String, String> data = new HashMap<>();
                     VapeDriver.getInstance().getProcessHandler().getConnectedServers().forEach(serverData -> {
-                        ProcessBindeToBungeePacket bungeePacket = new ProcessBindeToBungeePacket();
-                        bungeePacket.setProcessName(serverData.getProcessName());
-                        bungeePacket.setHostAddress(serverData.getHostAddress());
-                        bungeePacket.setProcessMode(serverData.getProcessMode());
-                        bungeePacket.setPort(serverData.getPort());
-                        channel.sendPacket(bungeePacket);
+                        CloudProcessUpdateInPacket update = new CloudProcessUpdateInPacket();
+                        data.clear();
+                        data.put("updatetype", "ADDPROCESS");
+                        data.put("processname", serverData.getProcessName());
+                        data.put("processhost", serverData.getHostAddress());
+                        data.put("processport", String.valueOf(serverData.getPort()));
+                        data.put("processtype", serverData.getProcessMode());
+                        update.setData(data);
+                        channel.sendPacket(update);
                     });
-                } else {
-                    VapeDriver.getInstance().getProcessHandler().getConnectedServers().add(new ServerData(channel.getLocalAddress().getHostAddress(), packet.getProcessName(),packet.getProcessType(), packet.getPort()));
-                    ProcessBindeToBungeePacket bungeePacket = new ProcessBindeToBungeePacket();
-                    bungeePacket.setProcessName(packet.getProcessName());
-                    bungeePacket.setHostAddress(channel.getLocalAddress().getHostAddress());
-                    bungeePacket.setProcessMode(packet.getProcessType());
-                    bungeePacket.setPort(packet.getPort());
+                }else {
+                    VapeDriver.getInstance().getProcessHandler().getConnectedServers().add(new ServerData(channel.getLocalAddress().getHostAddress(), process.getProcessName(),process.getProcessType(), process.getProcessPort()));
+                    CloudProcessUpdateInPacket update = new CloudProcessUpdateInPacket();
+                    Map<String, String> data = new HashMap<>();
+                    data.put("updatetype", "ADDPROCESS");
+                    data.put("processname", process.getProcessName());
+                    data.put("processhost", channel.getLocalAddress().getHostAddress());
+                    data.put("processport", String.valueOf(process.getProcessPort()));
+                    data.put("processtype", process.getProcessType());
+
+                    update.setData(data);
                     ContainerHandler container =  new ContainerHandler();
 
                     container.getSubContainersNames().forEach(scon -> {
                         if (container.getSubContainers(scon).getContainerModeType().toString().equalsIgnoreCase("PROXY")){
-                            VapeDriver.getInstance().getNetworkHandler().getConnectionHandler().getChannelsByGroup(scon).forEach(new BiConsumer<String, IChannel>() {
-                                @Override
-                                public void accept(String s, IChannel channel) {
-                                    channel.sendPacket(bungeePacket);
-                                }
-                            });
+                            VapeDriver.getInstance().getNetworkHandler().getConnectionHandler().getChannelsByGroup(scon).forEach((s, channel1) -> channel1.sendPacket(update));
                         }
-
                     });
-
                 }
             }
         }

@@ -1,0 +1,4 @@
+main: de.vapecloud.bungee.BungeeBridge
+name: vapecloud-plugin-bungeebridge
+author: RauchigesEtwas
+version: 1.0.0

@@ -6,6 +6,7 @@ package de.vapecloud.driver.networking.server;
  * Created by Robin B. (RauchigesEtwas)
  */
 
+import de.vapecloud.vapenet.VapeNETOption;
 import de.vapecloud.vapenet.VapeNETServer;
 import de.vapecloud.vapenet.channel.ChannelPipeline;
 import de.vapecloud.vapenet.VapeNetBootStrap;
@@ -32,7 +33,7 @@ public class Server {
             VapeNetBootStrap.server = new VapeNETServer();
             VapeNetBootStrap.server.init(channel -> {
                 ChannelPipeline pipeline = channel.getPipeline();
-            }).bind(this.port);
+            }).option(VapeNETOption.BUFFER_SIZE, 2024).bind(this.port);
         }catch (Exception e){
 
         }
