@@ -127,6 +127,13 @@ public class RunningProcess implements IProcess {
             fileWriter.write(VapeDriver.getInstance().getVapeSettings().getDataCenter().getSpigotConfig());
             fileWriter.flush();
             fileWriter.close();
+
+            File configFile2 = new File(System.getProperty("user.dir") + this.getProcessCore().getRunningPath(), "bukkit.yml");
+            final FileWriter fileWriter2 = new FileWriter(configFile2);
+            fileWriter2.write(VapeDriver.getInstance().getVapeSettings().getDataCenter().getSpigotConfigs());
+            fileWriter2.flush();
+            fileWriter2.close();
+
             ServiceConfig serviceConfig = (ServiceConfig) new ConfigHandler("./service.json").getConfig(ServiceConfig.class);
 
             Thread thread = new Thread(() -> {

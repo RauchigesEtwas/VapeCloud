@@ -38,7 +38,7 @@ public class DataCenter {
                 "permissions:\n" +
                 "timeout: 30000\n" +
                 "log_commands: false\n" +
-                "online_mode: false\n" +
+                "online_mode: true\n" +
                 "servers:\n" +
                 "listeners:\n" +
                 "- query_port: "+port+"\n" +
@@ -63,6 +63,54 @@ public class DataCenter {
     }
 
 
+    /**
+     * bungee configuration to load them easily
+     */
+    public String getSpigotConfigs(){
+        return "# This is the main configuration file for Bukkit.\n" +
+                "# As you can see, there's actually not that much to configure without any plugins.\n" +
+                "# For a reference for any variable inside this file, check out the Bukkit Wiki at\n" +
+                "# http://wiki.bukkit.org/Bukkit.yml\n" +
+                "# \n" +
+                "# If you need help on this file, feel free to join us on irc or leave a message\n" +
+                "# on the forums asking for advice.\n" +
+                "# \n" +
+                "# IRC: #spigot @ irc.spi.gt\n" +
+                "#    (If this means nothing to you, just go to http://www.spigotmc.org/pages/irc/ )\n" +
+                "# Forums: http://www.spigotmc.org/\n" +
+                "# Bug tracker: http://www.spigotmc.org/go/bugs\n" +
+                "\n" +
+                "\n" +
+                "settings:\n" +
+                "  allow-end: true\n" +
+                "  warn-on-overload: true\n" +
+                "  permissions-file: permissions.yml\n" +
+                "  update-folder: update\n" +
+                "  plugin-profiling: false\n" +
+                "  connection-throttle: 0\n" +
+                "  query-plugins: true\n" +
+                "  deprecated-verbose: default\n" +
+                "  shutdown-message: Server closed\n" +
+                "spawn-limits:\n" +
+                "  monsters: 70\n" +
+                "  animals: 15\n" +
+                "  water-animals: 5\n" +
+                "  ambient: 15\n" +
+                "chunk-gc:\n" +
+                "  period-in-ticks: 600\n" +
+                "  load-threshold: 0\n" +
+                "ticks-per:\n" +
+                "  animal-spawns: 400\n" +
+                "  monster-spawns: 1\n" +
+                "  autosave: 6000\n" +
+                "aliases: now-in-commands.yml\n" +
+                "database:\n" +
+                "  username: bukkit\n" +
+                "  isolation: SERIALIZABLE\n" +
+                "  driver: org.sqlite.JDBC\n" +
+                "  password: walrus\n" +
+                "  url: jdbc:sqlite:{DIR}{NAME}.db\n";
+    }
 
 
 

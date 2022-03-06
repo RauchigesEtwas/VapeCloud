@@ -1,6 +1,5 @@
 package de.vapecloud.bungee;
 
-import de.vapecloud.bungee.commands.CloudCommand;
 import de.vapecloud.bungee.listener.CloudPlayerEnterNetworkListener;
 import de.vapecloud.bungee.network.UpdatePacketHandler;
 import de.vapecloud.bungee.utils.GeneralHandler;
@@ -10,7 +9,6 @@ import de.vapecloud.driver.configuration.configs.ProcessConfig;
 import de.vapecloud.driver.networking.client.Client;
 import de.vapecloud.driver.networking.packets.cloudprocess.out.CloudProcessIsReadyOutPacket;
 import de.vapecloud.vapenet.VapeNetBootStrap;
-import de.vapecloud.vapenet.handlers.PacketListenerHandler;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
@@ -39,8 +37,6 @@ public class BungeeBridge extends Plugin {
         packet.setPort(config.getProcessStartPort());
         packet.setProcessType(config.getProcessMode());
         VapeNetBootStrap.client.sendPacket(packet);
-        pluginManager.registerCommand(this, new CloudCommand("cloud"));
-        pluginManager.registerCommand(this, new CloudCommand("vapecloud"));
         pluginManager.registerListener(this, new CloudPlayerEnterNetworkListener());
 
     }
