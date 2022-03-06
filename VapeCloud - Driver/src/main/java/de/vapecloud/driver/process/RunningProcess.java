@@ -9,7 +9,9 @@ package de.vapecloud.driver.process;
 import de.vapecloud.driver.VapeDriver;
 import de.vapecloud.driver.configuration.ConfigHandler;
 import de.vapecloud.driver.configuration.configs.ProcessConfig;
+import de.vapecloud.driver.configuration.configs.ServiceConfig;
 import de.vapecloud.driver.configuration.configs.SettingsConfig;
+import de.vapecloud.driver.container.ContainerHandler;
 import de.vapecloud.driver.container.enums.ContainerVersion;
 import de.vapecloud.driver.process.bin.ProcessCore;
 import de.vapecloud.driver.process.interfaces.IProcess;
@@ -105,7 +107,8 @@ public class RunningProcess implements IProcess {
             FileUtils.copyFile(new File("./local/server-icon.png"), new File("." + this.getProcessCore().getRunningPath()+ "server-icon.png"));
             File configFile = new File(System.getProperty("user.dir") + this.getProcessCore().getRunningPath(), "config.yml");
             final FileWriter fileWriter = new FileWriter(configFile);
-            fileWriter.write(VapeDriver.getInstance().getVapeSettings().getDataCenter().getBungeeConfig(this.getProcessCore().getProvideStartPort(),1));
+            ServiceConfig serviceConfig = (ServiceConfig) new ConfigHandler("./service.json").getConfig(ServiceConfig.class);
+            fileWriter.write(VapeDriver.getInstance().getVapeSettings().getDataCenter().getBungeeConfig(this.getProcessCore().getProvideStartPort(),new ContainerHandler().getSubContainers(this.getProcessCore().getProcessName().split(serviceConfig.getInternalSplitter())[0]).getMaximalPlayers()));
             fileWriter.flush();
             fileWriter.close();
 
@@ -124,10 +127,12 @@ public class RunningProcess implements IProcess {
             fileWriter.write(VapeDriver.getInstance().getVapeSettings().getDataCenter().getSpigotConfig());
             fileWriter.flush();
             fileWriter.close();
+            ServiceConfig serviceConfig = (ServiceConfig) new ConfigHandler("./service.json").getConfig(ServiceConfig.class);
 
             Thread thread = new Thread(() -> {
                 try {
-                    process = Runtime.getRuntime().exec("java -Xms" + getProcessCore().getMaximalMemory() + "M -Xmx" + getProcessCore().getMaximalMemory() + "M -Dcom.mojang.eula.agree=true -jar server.jar -org.spigotmc.netty.disabled=true --port " + getProcessCore().getProvideStartPort() + " ", null, new File(System.getProperty("user.dir") + getProcessCore().getRunningPath()));
+
+                    process = Runtime.getRuntime().exec("java -Xms" + getProcessCore().getMaximalMemory() + "M -Xmx" + getProcessCore().getMaximalMemory() + "M -Dcom.mojang.eula.agree=true -jar server.jar -org.spigotmc.netty.disabled=true --port " + getProcessCore().getProvideStartPort() + " --max-players "+new ContainerHandler().getSubContainers(this.getProcessCore().getProcessName().split(serviceConfig.getInternalSplitter())[0]).getMaximalPlayers()+" ", null, new File(System.getProperty("user.dir") + getProcessCore().getRunningPath()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -38,7 +38,7 @@ public class DataCenter {
                 "permissions:\n" +
                 "timeout: 30000\n" +
                 "log_commands: false\n" +
-                "online_mode: true\n" +
+                "online_mode: false\n" +
                 "servers:\n" +
                 "listeners:\n" +
                 "- query_port: "+port+"\n" +
@@ -47,7 +47,7 @@ public class DataCenter {
                 "  bind_local_address: true\n" +
                 "  tab_list: GLOBAL_PING\n" +
                 "  query_enabled: false\n" +
-                "  host: 127.0.0.1:"+port+"\n" +
+                "  host: 0.0.0.0:"+port+"\n" +
                 "  forced_hosts:\n" +
                 "    pvp.md-5.net: pvp\n" +
                 "  max_players: "+maxPlayers+"\n" +

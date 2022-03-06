@@ -36,7 +36,7 @@ public class UpdatePacketHandler extends PacketListener {
                 HashMap<String, String> messages = new HashMap<>();
                 messages.remove("updatetype");
                 update.getData().forEach((s, msg) -> {
-                    messages.put(VapeDriver.getInstance().getVapeSettings().getDataCenter().convertToUTF8(s), VapeDriver.getInstance().getVapeSettings().getDataCenter().convertToUTF8(msg));
+
                 });
                 config.setMessages(messages);
                 new ConfigHandler("./cloud/config.json").saveConfig(config);
